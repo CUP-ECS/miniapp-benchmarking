@@ -51,25 +51,25 @@ int main(int argc, char** argv)
 
 
 
-        cmd.add(filepathArg)
-        cmd.add(typesizeArg)
-        cmd.add(samplesArg)
-        cmd.add(neighborsArg)
-        cmd.add(iterationsArg)
-        cmd.add(neighbors_stdvArg)
-        cmd.add(owned_avgArg)
-        cmd.add(owned_stdvArg)
-        cmd.add(remote_avgArg)
-        cmd.add(remote_stdArg)
-        cmd.add(blocksize_avgArg)
-        cmd.add(blocksize_stdvArg)
-        cmd.add(strideArg)
-        cmd.add(seedArg)
-        cmd.add(stride_stdvArg)
-        cmd.add(memspaceArg)
-        cmd.add(distributionArg)
-        cmd.add(unitsArg)
-
+        cmd.add(filepathArg);
+        cmd.add(typesizeArg);
+        cmd.add(samplesArg);
+        cmd.add(neighborsArg);
+        cmd.add(iterationsArg);
+        cmd.add(neighbors_stdvArg);
+        cmd.add(owned_avgArg);
+        cmd.add(owned_stdvArg);
+        cmd.add(remote_avgArg);
+        cmd.add(remote_stdArg);
+        cmd.add(blocksize_avgArg);
+        cmd.add(blocksize_stdvArg);
+        cmd.add(strideArg);
+        cmd.add(seedArg);
+        cmd.add(stride_stdvArg);
+        cmd.add(memspaceArg);
+        cmd.add(distributionArg);
+        cmd.add(unitsArg);
+;
 
 
 
