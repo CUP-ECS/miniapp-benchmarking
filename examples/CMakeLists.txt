@@ -1,22 +1,38 @@
-include_directories(${CMAKE_CURRENT_BINARY_DIR})
-include_directories(${CMAKE_CURRENT_SOURCE_DIR})
-
 blt_add_executable( NAME main
-                SOURCES main.cpp 
-                OUTPUT_DIR ${EXAMPLE_OUTPUT_DIRECTORY})
+        SOURCES main.cpp
+        OUTPUT_DIR ${EXAMPLE_OUTPUT_DIRECTORY})
 
-# Tell CMAKE we need to link with these libraries. Our "FindMPI_Advance" script
-# does not define an explicit target, but it does set the variable below.
-# We also need to link with MPI, which is done through the target they provide
-# (It's not C++ MPI, but rather the libraries for a C++ program using MPI)
 
-# Finally, we also need to tell CMAKE where the library header is. 
+#TCLAP_start
+find_path(TCLAP_INCLUDE_DIR tclap/CmdLine.h
+        PATHS
+        ${SPACK_PREFIX}/include
+)
 
-add_subdirectory(../tclap)
+# Check if we found TCLAP
+if (TCLAP_INCLUDE_DIR)
+    message(STATUS "Found TCLAP: ${TCLAP_INCLUDE_DIR}")
+    set(TCLAP_FOUND TRUE)
+else ()
+    message(FATAL_ERROR "TCLAP not found!")
+endif ()
+set(TCLAP_INCLUDE_DIRS ${TCLAP_INCLUDE_DIR})
+#TCLAP_end
+
+
+
+
+
+
+
+include_directories(${TCLAP_INCLUDE_DIR})
+
+
+
+
 
 
 target_link_libraries( main PRIVATE myproject )
 
-target_link_libraries(main PRIVATE tclap)
 
 install(TARGETS main DESTINATION ${CMAKE_INSTALL_BINDIR})
