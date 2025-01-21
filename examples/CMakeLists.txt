@@ -12,7 +12,11 @@ blt_add_executable( NAME main
 
 # Finally, we also need to tell CMAKE where the library header is. 
 
+add_subdirectory(../tclap)
+
+
 target_link_libraries( main PRIVATE myproject )
 
+target_link_libraries(main PRIVATE tclap)
 
 install(TARGETS main DESTINATION ${CMAKE_INSTALL_BINDIR})
