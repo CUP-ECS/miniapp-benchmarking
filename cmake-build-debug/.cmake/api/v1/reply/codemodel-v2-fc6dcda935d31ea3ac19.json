@@ -1,0 +1,177 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-DEBUG-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.1.3"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						5
+					]
+				},
+				{
+					"build" : "l7",
+					"childIndexes" : 
+					[
+						2
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-l7-DEBUG-8139d3470d0aa79c299c.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "2.6"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 1,
+					"source" : "l7",
+					"targetIndexes" : 
+					[
+						1,
+						2,
+						3,
+						4,
+						7
+					]
+				},
+				{
+					"build" : "l7/tests",
+					"jsonFile" : "directory-l7.tests-DEBUG-4c5c558649cc6f187e76.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "2.6"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 1,
+					"source" : "l7/tests",
+					"targetIndexes" : 
+					[
+						0,
+						6
+					]
+				}
+			],
+			"name" : "DEBUG",
+			"projects" : 
+			[
+				{
+					"childIndexes" : 
+					[
+						1
+					],
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "CLAMR",
+					"targetIndexes" : 
+					[
+						5
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						1,
+						2
+					],
+					"name" : "L7",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						6,
+						7
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 2,
+					"id" : "L7Test::@070130ea57e86e562848",
+					"jsonFile" : "target-L7Test-DEBUG-b5bb2f8b418a162459da.json",
+					"name" : "L7Test",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "L7_doc::@966683b0081ca54f0618",
+					"jsonFile" : "target-L7_doc-DEBUG-b6fad2b4f1d050e0b2c0.json",
+					"name" : "L7_doc",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "L7_htmldoc::@966683b0081ca54f0618",
+					"jsonFile" : "target-L7_htmldoc-DEBUG-54e6f774ba121cae96a7.json",
+					"name" : "L7_htmldoc",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "L7_pdfdoc::@966683b0081ca54f0618",
+					"jsonFile" : "target-L7_pdfdoc-DEBUG-4c0aff5fb9c9761483d6.json",
+					"name" : "L7_pdfdoc",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "L7_singlehtmldoc::@966683b0081ca54f0618",
+					"jsonFile" : "target-L7_singlehtmldoc-DEBUG-ded3e7e5d6d2be0ac9bb.json",
+					"name" : "L7_singlehtmldoc",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "benchmark::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-benchmark-DEBUG-ade4c7b25488c2efdfd5.json",
+					"name" : "benchmark",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "l7_check::@070130ea57e86e562848",
+					"jsonFile" : "target-l7_check-DEBUG-5ed72cdb83a84471c61e.json",
+					"name" : "l7_check",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "l7_kernel_source::@966683b0081ca54f0618",
+					"jsonFile" : "target-l7_kernel_source-DEBUG-0f0abb0f94864bbf5389.json",
+					"name" : "l7_kernel_source",
+					"projectIndex" : 1
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/Users/nicho/CLionProjects/irregular-benchmarking/cmake-build-debug",
+		"source" : "C:/Users/nicho/CLionProjects/irregular-benchmarking"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 7
+	}
+}

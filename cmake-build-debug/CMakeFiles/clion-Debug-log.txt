@@ -1,0 +1,64 @@
+"C:\Program Files\JetBrains\CLion 2024.3.2\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug "-DCMAKE_MAKE_PROGRAM=C:/Program Files/JetBrains/CLion 2024.3.2/bin/ninja/win/x64/ninja.exe" -G Ninja -S C:\Users\nicho\CLionProjects\irregular-benchmarking -B C:\Users\nicho\CLionProjects\irregular-benchmarking\cmake-build-debug
+-- BLT Version: 0.6.2
+-- CMake Version: 3.30.5
+-- CMake Build Type: Debug
+-- CMake Executable: C:/Program Files/JetBrains/CLion 2024.3.2/bin/cmake/win/x64/bin/cmake.exe
+-- Setting CMAKE_CXX_EXTENSIONS to OFF
+-- Standard C++17 selected
+-- BLT MPI support is OFF
+-- BLT OpenMP support is OFF
+-- BLT CUDA support is OFF
+-- BLT HIP support is OFF
+-- Found Git: C:/Program Files/Git/cmd/git.exe (found version "2.45.1.windows.1")
+-- Git Support is ON
+-- Git Executable: C:/Program Files/Git/cmd/git.exe
+-- Git Version: 2.45.1.windows.1
+-- Could NOT find Doxygen (missing: DOXYGEN_EXECUTABLE) 
+-- Sphinx support is ON
+-- Failed to locate Sphinx executable (missing: SPHINX_EXECUTABLE) 
+-- Valgrind support is ON
+-- Failed to locate Valgrind executable (missing: VALGRIND_EXECUTABLE) 
+-- AStyle support is ON
+-- Failed to locate AStyle executable (missing: ASTYLE_EXECUTABLE) 
+-- ClangFormat support is ON
+-- Failed to locate ClangFormat executable (missing: CLANGFORMAT_EXECUTABLE) 
+-- Uncrustify support is ON
+-- Failed to locate Uncrustify executable (missing: UNCRUSTIFY_EXECUTABLE) 
+-- Yapf support is ON
+-- Failed to locate Yapf executable (missing: YAPF_EXECUTABLE) 
+-- CMakeFormat support is ON
+-- Failed to locate CMakeFormat executable (missing: CMAKEFORMAT_EXECUTABLE) 
+-- Cppcheck support is ON
+-- Failed to locate Cppcheck executable (missing: CPPCHECK_EXECUTABLE) 
+-- ClangQuery support is ON
+-- Failed to locate ClangQuery executable (missing: CLANGQUERY_EXECUTABLE) 
+-- ClangTidy support is ON
+-- Failed to locate ClangTidy executable (missing: CLANGTIDY_EXECUTABLE) 
+-- ClangApplyReplacements support is ON
+-- Failed to locate ClangApplyReplacements executable (missing: CLANGAPPLYREPLACEMENTS_EXECUTABLE) 
+-- C Compiler family is GNU
+-- Adding optional BLT definitions and compiler flags
+-- Enabling all compiler warnings on all targets.
+-- Fortran support disabled.
+-- CMAKE_C_FLAGS flags are:   -Wall -Wextra  
+-- CMAKE_CXX_FLAGS flags are:   -Wall -Wextra     
+-- CMAKE_EXE_LINKER_FLAGS flags are:  
+-- CMake's C implicit link directories: 
+-- CMake's CXX implicit link directories: 
+-- CMake's C implicit link libraries: 
+-- CMake's CXX implicit link libraries: 
+-- Google Test Support is ON
+-- Google Mock Support is OFF
+CMake Error at blt/thirdparty_builtin/CMakeLists.txt:123 (add_subdirectory):
+  add_subdirectory given source "googletest" which is not an existing
+  directory.
+
+
+CMake Error at blt/cmake/BLTInstallableMacros.cmake:370 (message):
+  Target gtest passed to blt_add_target_definitions is not a valid cmake
+  target
+Call Stack (most recent call first):
+  blt/thirdparty_builtin/CMakeLists.txt:139 (blt_add_target_definitions)
+
+
+-- Configuring incomplete, errors occurred!
