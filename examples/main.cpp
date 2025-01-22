@@ -23,10 +23,11 @@ int main(int argc, char** argv)
 {
     try {
         // Create the command line parser
-        TCLAP::CmdLine cmd("\nNOTE: Setting parameters for the benchmark such as (neighbors, owned, remote, blocksize, and stride)\n\tsets parameters to those values for the reference benchmark.\n"
-         "\tThose parameters are then randomized for the irregular samples\n"
-         "\twhere the user-set parameters become averages for the random generation.\n"
-         "\tUse the `--disable-irregularity` flag to only run the reference benchmark.\n", ' ', "1.0");
+        TCLAP::CmdLine cmd("\nNOTE: Setting parameters for the benchmark such as (neighbors, owned, remote, blocksize, and stride)"
+                           "\tsets parameters to those values for the reference benchmark.\n"
+                           "\tThose parameters are then randomized for the irregular samples"
+                           "\twhere the user-set parameters become averages for the random generation."
+                           "\tUse the `--disable-irregularity` flag to only run the reference benchmark.", ' ', "1.0");
 
         // Arguments
         TCLAP::ValueArg<std::string> filepathArg("f", "filepath", "Path to the BENCHMARK_CONFIG file", false, "", "string");
