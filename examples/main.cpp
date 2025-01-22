@@ -47,7 +47,7 @@ int main(int argc, char** argv)
 
         // Optional flag argument for reporting
         TCLAP::SwitchArg reportParamsArg("", "report-params", "Enables parameter reporting for use with analysis scripts", false);
-        TCLAP::SwitchArg reportParamsArg("", "disable-irregularity", "Use the `--disable-irregularity` flag to only run the reference benchmark.", false);
+        TCLAP::SwitchArg disableirregularityArg("", "disable-irregularity", "Use the `--disable-irregularity` flag to only run the reference benchmark.", false);
 
         // Add all arguments to the command line parser
         cmd.add(filepathArg);
@@ -69,6 +69,8 @@ int main(int argc, char** argv)
         cmd.add(distributionArg);
         cmd.add(unitsArg);
         cmd.add(reportParamsArg);
+        cmd.add(disableirregularityArg);
+
 //        cmd.setExtraUsage(
 //            "\nNOTE: Setting parameters for the benchmark such as (neighbors, owned, remote, blocksize, and stride)\n"
 //            "      sets parameters to those values for the reference benchmark.\n"
