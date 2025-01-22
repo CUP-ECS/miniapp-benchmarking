@@ -21,76 +21,77 @@
 
 int main(int argc, char** argv)
 {
-	try {
+    try {
+        // Create the command line parser
+        TCLAP::CmdLine cmd("irregular benchmarking", ' ', "1.0");
 
+        // Arguments
+        TCLAP::ValueArg<std::string> filepathArg("f", "filepath", "Path to the BENCHMARK_CONFIG file", false, "", "string");
+        TCLAP::ValueArg<int> typeSizeArg("t", "typesize", "Size of the variable being sent (in bytes)", false, 0, "int");
+        TCLAP::ValueArg<int> samplesArg("I", "samples", "Number of random samples to generate", false, 0, "int");
+        TCLAP::ValueArg<int> iterationsArg("i", "iterations", "Number of updates each sample performs", false, 0, "int");
+        TCLAP::ValueArg<int> neighborsArg("n", "neighbors", "Average number of neighbors each process communicates with", false, 0, "int");
+        TCLAP::ValueArg<int> neighborsStdvArg("N", "neighbors_stdv", "Standard deviation of the number of neighbors each process communicates with", false, 0, "int");
+        TCLAP::ValueArg<int> ownedAvgArg("o", "owned_avg", "Average byte count for data owned per node", false, 0, "int");
+        TCLAP::ValueArg<int> ownedStdvArg("O", "owned_stdv", "Standard deviation byte count for data owned per node", false, 0, "int");
+        TCLAP::ValueArg<int> remoteAvgArg("r", "remote_avg", "Average amount of data each process receives", false, 0, "int");
+        TCLAP::ValueArg<int> remoteStdvArg("R", "remote_stdv", "Standard deviation of the amount of data each process receives", false, 0, "int");
+        TCLAP::ValueArg<int> blockSizeAvgArg("b", "blocksize_avg", "Average size of transmitted blocks", false, 0, "int");
+        TCLAP::ValueArg<int> blockSizeStdvArg("B", "blocksize_stdv", "Standard deviation of transmitted block sizes", false, 0, "int");
+        TCLAP::ValueArg<int> strideArg("s", "stride", "Average size of stride", false, 0, "int");
+        TCLAP::ValueArg<int> strideStdvArg("T", "stride_stdv", "Standard deviation of stride", false, 0, "int");
+        TCLAP::ValueArg<int> seedArg("S", "seed", "Positive integer to be used as seed for random number generation", false, 0, "int");
+        TCLAP::ValueArg<std::string> memSpaceArg("m", "memspace", "Choose from: host, cuda, openmp, opencl", false, "host", "string");
+        TCLAP::ValueArg<std::string> distributionArg("d", "distribution", "Choose from: gaussian (default), empirical", false, "gaussian", "string");
+        TCLAP::ValueArg<std::string> unitsArg("u", "units", "Choose from: a,b,k,m,g (auto, bytes, kilobytes, etc.)", false, "auto", "string");
 
-		TCLAP::CmdLine cmd("Command description message", ' ', "0.9");
-		TCLAP::ValueArg<std::string> filepathArg("f","filepath","tspecify the path to the BENCHMARK_CONFIG file",true,"XXX","string");
-		TCLAP::ValueArg<int>         typesizeArg("t","typesize","the size of the variable being sent (in bytes)",true,0,"int");
-		TCLAP::ValueArg<int>         samplesArg("I","samples","the number of random samples to generate",true,0,"int");
-		TCLAP::ValueArg<int>         neighborsArg("n","neighbors","specify the average number of neighbors each process communicates with",true,0,"int");
-		TCLAP::ValueArg<int>         iterationsArg("i","iterations","specify the number of updates each sample performs",true,0,"int");
-		TCLAP::ValueArg<int>         neighbors_stdvArg("N","neighbors_stdv","specify the stdev number of neighbors each process communicates with",true,0,"int");
-		TCLAP::ValueArg<int>         owned_avgArg("o","owned_avg","x",true,0,"int");
-		TCLAP::ValueArg<int>         owned_stdvArg("O","owned_stdv","x",true,0,"int");
-		TCLAP::ValueArg<int>         remote_avgArg("r","remote_avg","x",true,0,"int");
-		TCLAP::ValueArg<int>         remote_stdArg("R","remote_std","x",true,0,"int");
-		TCLAP::ValueArg<int>         blocksize_avgArg("b","blocksize_avg","x",true,0,"int");
-		TCLAP::ValueArg<int>         blocksize_stdvArg("B","blocksize_stdv","x",true,0,"int");
-		TCLAP::ValueArg<int>         strideArg("s","stride","x",true,0,"int");
-		TCLAP::ValueArg<int>         seedArg("S","seed","x",true,0,"int");
-		TCLAP::ValueArg<int>         stride_stdvArg("T","stride_stdv","x",true,0,"int");
-		TCLAP::ValueArg<int>         memspaceArg("m","memspace","x",true,0,"int");
-		TCLAP::ValueArg<int>         distributionArg("d","distribution","x",true,0,"int");
-		TCLAP::ValueArg<int>         unitsArg("u","units","x",true,0,"int");
+        // Optional flag argument for reporting
+        TCLAP::SwitchArg reportParamsArg("", "report-params", "Enables parameter reporting for use with analysis scripts", false);
 
-
-
-        TCLAP::SwitchArg reverseSwitch("t","typesize","the size of the variable being sent (in bytes)", cmd, false);
-
-
-
-
+        // Add all arguments to the command line parser
         cmd.add(filepathArg);
-        cmd.add(typesizeArg);
+        cmd.add(typeSizeArg);
         cmd.add(samplesArg);
-        cmd.add(neighborsArg);
         cmd.add(iterationsArg);
-        cmd.add(neighbors_stdvArg);
-        cmd.add(owned_avgArg);
-        cmd.add(owned_stdvArg);
-        cmd.add(remote_avgArg);
-        cmd.add(remote_stdArg);
-        cmd.add(blocksize_avgArg);
-        cmd.add(blocksize_stdvArg);
+        cmd.add(neighborsArg);
+        cmd.add(neighborsStdvArg);
+        cmd.add(ownedAvgArg);
+        cmd.add(ownedStdvArg);
+        cmd.add(remoteAvgArg);
+        cmd.add(remoteStdvArg);
+        cmd.add(blockSizeAvgArg);
+        cmd.add(blockSizeStdvArg);
         cmd.add(strideArg);
+        cmd.add(strideStdvArg);
         cmd.add(seedArg);
-        cmd.add(stride_stdvArg);
-        cmd.add(memspaceArg);
+        cmd.add(memSpaceArg);
         cmd.add(distributionArg);
         cmd.add(unitsArg);
-;
+        cmd.add(reportParamsArg);
+        cmd.setExtraUsage(
+            "\nNOTE: Setting parameters for the benchmark such as (neighbors, owned, remote, blocksize, and stride)\n"
+            "      sets parameters to those values for the reference benchmark.\n"
+            "      Those parameters are then randomized for the irregular samples\n"
+            "      where the user-set parameters become averages for the random generation.\n"
+            "      Use the `--disable-irregularity` flag to only run the reference benchmark.\n"
+        );
 
+        // Parse the command line arguments
+        cmd.parse(argc, argv);
 
+        // Example of how you would retrieve and use the arguments
+        std::string filepath = filepathArg.getValue();
+        int typesize = typeSizeArg.getValue();
+        int samples = samplesArg.getValue();
 
+        printf("test1 %i\n",typesize);
+        printf("test2 %i\n",samples);
 
-		// Parse the argv array.
-		cmd.parse( argc, argv );
-
-		// Get the value parsed by each arg.
-		std::string name = filepathArg.getValue();
-		std::cout << "My name is: " << name << std::endl;
-
-
-
-
-
-	} catch (TCLAP::ArgException &e)  // catch exceptions
-	{
-          std::cerr << "error: " << e.error() << " for arg " << e.argId() << std::endl;
-
-        }
-
+    }
+    catch (TCLAP::ArgException &e) {
+        std::cerr << "Error: " << e.error() << " for argument " << e.argId() << std::endl;
+        return -1;
+    }
 
 	printf("Hi\n");
 	return 0;
