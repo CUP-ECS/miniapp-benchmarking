@@ -224,7 +224,7 @@ if(unit=="auto" ||unit=="a" ) {
 }else if(unit=="bytes" ||unit=="b") {
     unit_symbol=A;
     unit_div=0;
-}else if(unit=="kilobytes" |unit=="k") {
+}else if(unit=="kilobytes" ||unit=="k") {
     unit_symbol=K;
     unit_div=1024 ;
 }else if(unit=="megabytes" ||unit=="m") {
@@ -244,7 +244,7 @@ std::string distribution=distributionArg.getValue();
 
 if (distribution == "gaussian"  ||
     distribution == "g") {
-  distribution_t=GAUSSIAN;
+  distribution_t = GAUSSIAN;
 
 }else if (distribution == "empirical"
           || distribution == "e") {
