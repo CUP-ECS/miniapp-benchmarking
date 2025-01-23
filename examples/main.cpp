@@ -11,7 +11,13 @@
 #include <tclap/CmdLine.h>
 
 #include <filesystem>
-
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+#include <time.h>
+#include <string.h>
+#include <unistd.h>
+#include <stdbool.h>
 
 enum distribution {
     GAUSSIAN,
@@ -52,6 +58,33 @@ static bool irregularity_blocksz = 1;
 static bool irregularity_remote = 1;
 static bool report_params = 0;
 static int seed = -1;
+
+
+int gauss_dist(double mean, double stdev) {
+    // generates two random numbers that form the seeds
+    // of the transform
+    double u1, u2, r, theta;
+    int generated = -1;
+
+    while (generated <= 0) {
+        u1 = (double)rand() / RAND_MAX;
+        u2 = (double)rand() / RAND_MAX;
+
+        // generates the R and Theta values from the above
+        // documentation
+        r = sqrt(-2.*log(u1));
+        theta = (2*M_PI*u2);
+
+        // an additional number can be generated in the
+        // same distribution using the alternate form
+        // ((r*sin(theta)) * stdev) + mean
+
+        generated = round(((r*cos(theta)) * stdev ) + mean);
+    }
+    return generated;
+}
+
+
 
 void parseArgs(int argc, char **argv){
   try {
@@ -103,7 +136,6 @@ void parseArgs(int argc, char **argv){
         cmd.add(strideArg);
         cmd.add(strideStdvArg);
         cmd.add(seedArg);
-//        cmd.add(memSpaceArg);
         cmd.add(distributionArg);
         cmd.add(unitsArg);
         cmd.add(reportParamsArg);
@@ -229,7 +261,7 @@ if(unit=="auto" ||unit=="a" ) {
     unit_div=1024*1024;
 }else if(unit=="gigabytes" ||unit=="g") {
     unit_symbol=G;
-    unit_div=1024*102*10244;
+    unit_div=1024*1024*1024;
 }else {
   printf("ERROR: Invalid formatting choice [b, k, m, g]\n");
   exit(-1);
@@ -252,20 +284,14 @@ if (distribution == "gaussian"  ||
 
 }
 
-
-
 seed=seedArg.getValue();
 if(seed==-1) {
   seed=time(NULL);
 }
 srand(seed);
 
-
-
-
-
-
 irregularity=disableirregularityArg.getValue();
+
 
 //        irregularity_owned
 //        irregularity_neighbors
