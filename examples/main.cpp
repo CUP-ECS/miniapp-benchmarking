@@ -128,27 +128,27 @@ void parse_arguments(int argc, char **argv){
 
 
 
-     typesize = typeSizeArg.getValue();
+         typesize = typeSizeArg.getValue();
 
-     if (typesize < 1 || typesize > 8) {
-         printf("ERROR: Invalid typesize\n");
-         exit(-1);
-     }
+         if (typesize < 1 || typesize > 8) {
+             printf("ERROR: Invalid typesize\n");
+             exit(-1);
+         }
 
 
 //numpes =00; \\todo
-nsamples=samplesArg.getValue();
+        nsamples=samplesArg.getValue();
 
-if (nsamples < 0){
-    printf("ERROR: Invalid number of samples\n");
-    exit(-1);
-}
+        if (nsamples < 0){
+            printf("ERROR: Invalid number of samples\n");
+            exit(-1);
+        }
 
-niterations=iterationsArg.getValue();
-if (niterations < 0){
-  printf("ERROR: Invalid number of iterations\n");
-  exit(-1);
-}
+        niterations=iterationsArg.getValue();
+        if (niterations < 0){
+          printf("ERROR: Invalid number of iterations\n");
+          exit(-1);
+        }
 
 
 
@@ -160,7 +160,7 @@ if (nneighbors < 0){
 }
 
 
-nneighbors_stdv=neighbors_stdvArg.getValue();
+nneighbors_stdv=neighborsStdvArg.getValue();
 
 if (nneighbors_stdv < 0){
     printf("ERROR: Invalid nighbors std\n");
@@ -176,7 +176,7 @@ if (nneighbors_stdv < 0){
     exit(-1);
 }
 
-nowned_stdv=owned_stdvArg.getValue();
+nowned_stdv=ownedStdvArg.getValue();
 if (nneighbors_stdv < 0){
     printf("ERROR: Invalid owned std\n");
     exit(-1);
