@@ -20,9 +20,6 @@ enum distribution {
 
 typedef enum distribution distribution_t;
 
-
-
-
 enum prefix {
     A,B,K,M,G
 };
@@ -244,11 +241,11 @@ std::string distribution=distributionArg.getValue();
 
 if (distribution == "gaussian"  ||
     distribution == "g") {
-  distribution_t = GAUSSIAN;
+  distribution_type = GAUSSIAN;
 
 }else if (distribution == "empirical"
           || distribution == "e") {
-  distribution_t=EMPIRICAL;
+  distribution_type=EMPIRICAL;
 }else {
   printf("ERROR: Invalid distribution choice [empirical,gaussian]\n");
   exit(-1);
