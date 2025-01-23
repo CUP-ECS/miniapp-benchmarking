@@ -53,7 +53,7 @@ static bool irregularity_remote = 1;
 static bool report_params = 0;
 static int seed = -1;
 
-void parse_arguments(int argc, char **argv){
+void parseArgs(int argc, char **argv){
   try {
         // Create the command line parser
         TCLAP::CmdLine cmd("\nNOTE: Setting parameters for the benchmark such as (neighbors, owned, remote, blocksize, and stride)"
