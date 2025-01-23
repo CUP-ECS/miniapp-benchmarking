@@ -265,7 +265,7 @@ srand(seed);
 
 
 
-irregularity=irregularityArg.getValue();
+irregularity=disableirregularityArg.getValue();
 
 //        irregularity_owned
 //        irregularity_neighbors
