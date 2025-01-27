@@ -83,6 +83,7 @@ int gauss_dist(double mean, double stdev) {
 
         generated = round(((r*cos(theta)) * stdev ) + mean);
     }
+
     return generated;
 }
 
