@@ -10,10 +10,12 @@
 #include <algorithm>
 #include <tclap/CmdLine.h>
 
+
+#include <cstdlib>
+
+#include <cmath>
 #include <filesystem>
 #include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
 #include <time.h>
 #include <string.h>
 #include <unistd.h>
@@ -182,123 +184,123 @@ void parseArgs(int argc, char **argv){
 
 
 
-nneighbors=neighborsArg.getValue();
-if (nneighbors < 0){
-    printf("ERROR: Invalid number of neighbors\n");
-    exit(-1);
-}
+        nneighbors=neighborsArg.getValue();
+        if (nneighbors < 0){
+            printf("ERROR: Invalid number of neighbors\n");
+            exit(-1);
+        }
 
 
-nneighbors_stdv=neighborsStdvArg.getValue();
+        nneighbors_stdv=neighborsStdvArg.getValue();
 
-if (nneighbors_stdv < 0){
-    printf("ERROR: Invalid nighbors std\n");
-    exit(-1);
-}
-
-
-
-
-nowned=ownedAvgArg.getValue();
-if (nneighbors_stdv < 0){
-    printf("ERROR: Invalid number of owned\n");
-    exit(-1);
-}
-
-nowned_stdv=ownedStdvArg.getValue();
-if (nneighbors_stdv < 0){
-    printf("ERROR: Invalid owned std\n");
-    exit(-1);
-}
-
-
-nremote=remoteAvgArg.getValue();
-if (nremote < 0){
-    printf("ERROR: Invalid number of remote\n");
-    exit(-1);
-}
-nremote_stdv=remoteStdvArg.getValue();
-if (nremote_stdv < 0){
-    printf("ERROR: Invalid remote std\n");
-    exit(-1);
-}
-
-blocksz=blockSizeAvgArg.getValue();
-if (blocksz < 0){
-  printf("ERROR: Invalid block size\n");
-  exit(-1);
-}
-blocksz_stdv=blockSizeStdvArg.getValue();
-if (blocksz_stdv < 0){
-  printf("ERROR: Invalid block size\n");
-  exit(-1);
-}
-stride=strideArg.getValue();
-if (stride < 0){
-  printf("ERROR: Invalid stride\n");
-}
-stride_stdv=strideStdvArg.getValue();
-if (stride_stdv < 0){
-  printf("ERROR: Invalid stride std\n");
-   exit(-1);
-
-}
-
-
-std::string unit = unitsArg.getValue();
-
-if(unit=="auto" ||unit=="a" ) {
-    unit_symbol=A;
-    unit_div=0;
-}else if(unit=="bytes" ||unit=="b") {
-    unit_symbol=A;
-    unit_div=0;
-}else if(unit=="kilobytes" ||unit=="k") {
-    unit_symbol=K;
-    unit_div=1024 ;
-}else if(unit=="megabytes" ||unit=="m") {
-    unit_symbol=M;
-    unit_div=1024*1024;
-}else if(unit=="gigabytes" ||unit=="g") {
-    unit_symbol=G;
-    unit_div=1024*1024*1024;
-}else {
-  printf("ERROR: Invalid formatting choice [b, k, m, g]\n");
-  exit(-1);
-}
+        if (nneighbors_stdv < 0){
+            printf("ERROR: Invalid nighbors std\n");
+            exit(-1);
+        }
 
 
 
-std::string distribution=distributionArg.getValue();
 
-if (distribution == "gaussian"  ||
-    distribution == "g") {
-  distribution_type = GAUSSIAN;
+        nowned=ownedAvgArg.getValue();
+        if (nneighbors_stdv < 0){
+            printf("ERROR: Invalid number of owned\n");
+            exit(-1);
+        }
 
-}else if (distribution == "empirical"
-          || distribution == "e") {
-  distribution_type=EMPIRICAL;
-}else {
-  printf("ERROR: Invalid distribution choice [empirical,gaussian]\n");
-  exit(-1);
-
-}
-
-seed=seedArg.getValue();
-if(seed==-1) {
-  seed=time(NULL);
-}
-srand(seed);
-
-irregularity=disableirregularityArg.getValue();
+        nowned_stdv=ownedStdvArg.getValue();
+        if (nneighbors_stdv < 0){
+            printf("ERROR: Invalid owned std\n");
+            exit(-1);
+        }
 
 
-//        irregularity_owned
-//        irregularity_neighbors
-//        irregularity_stride
-//        irregularity_blocksz
-//        irregularity_remote
-//        report_params
+        nremote=remoteAvgArg.getValue();
+        if (nremote < 0){
+            printf("ERROR: Invalid number of remote\n");
+            exit(-1);
+        }
+        nremote_stdv=remoteStdvArg.getValue();
+        if (nremote_stdv < 0){
+            printf("ERROR: Invalid remote std\n");
+            exit(-1);
+        }
+
+        blocksz=blockSizeAvgArg.getValue();
+        if (blocksz < 0){
+          printf("ERROR: Invalid block size\n");
+          exit(-1);
+        }
+        blocksz_stdv=blockSizeStdvArg.getValue();
+        if (blocksz_stdv < 0){
+          printf("ERROR: Invalid block size\n");
+          exit(-1);
+        }
+        stride=strideArg.getValue();
+        if (stride < 0){
+          printf("ERROR: Invalid stride\n");
+        }
+        stride_stdv=strideStdvArg.getValue();
+        if (stride_stdv < 0){
+          printf("ERROR: Invalid stride std\n");
+           exit(-1);
+
+        }
+
+
+        std::string unit = unitsArg.getValue();
+
+        if(unit=="auto" ||unit=="a" ) {
+            unit_symbol=A;
+            unit_div=0;
+        }else if(unit=="bytes" ||unit=="b") {
+            unit_symbol=A;
+            unit_div=0;
+        }else if(unit=="kilobytes" ||unit=="k") {
+            unit_symbol=K;
+            unit_div=1024 ;
+        }else if(unit=="megabytes" ||unit=="m") {
+            unit_symbol=M;
+            unit_div=1024*1024;
+        }else if(unit=="gigabytes" ||unit=="g") {
+            unit_symbol=G;
+            unit_div=1024*1024*1024;
+        }else {
+          printf("ERROR: Invalid formatting choice [b, k, m, g]\n");
+          exit(-1);
+        }
+
+
+
+        std::string distribution=distributionArg.getValue();
+
+        if (distribution == "gaussian"  ||
+            distribution == "g") {
+          distribution_type = GAUSSIAN;
+
+        }else if (distribution == "empirical"
+                  || distribution == "e") {
+          distribution_type=EMPIRICAL;
+        }else {
+          printf("ERROR: Invalid distribution choice [empirical,gaussian]\n");
+          exit(-1);
+
+        }
+
+        seed=seedArg.getValue();
+        if(seed==-1) {
+          seed=time(NULL);
+        }
+        srand(seed);
+
+        irregularity=disableirregularityArg.getValue();
+
+
+        //        irregularity_owned
+        //        irregularity_neighbors
+        //        irregularity_stride
+        //        irregularity_blocksz
+        //        irregularity_remote
+        //        report_params
 
 
 
