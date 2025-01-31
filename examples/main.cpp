@@ -91,88 +91,88 @@ int gauss_dist(double mean, double stdev) {
 
 
 void parse_config_file() {
-    char* params[] = { "nowned",
-                       "nremote",
-                       "blocksize",
-                       "stride",
-                       "comm_partners" };
-
-    for (int index = 0; index < (sizeof(params) / sizeof(params[0])); index++) {
-        char* param = params[index];
-
-        char param_key[25] = "PARAM: ";
-        strcat(param_key, param);
-
-        FILE* fp = fopen(filepath, "r");
-        if (fp == NULL) {
-            fprintf(stderr, "Error: Unable to open file %s\n", filepath);
-            exit(1);
-        }
-
-        char* line = NULL;
-        size_t linecap = 0;
-        ssize_t linelen;
-
-        // iterates through lines in the file until we get to the line
-        // that contains the parameter we're trying to generate for
-        while ((linelen = getline(&line, &linecap, fp)) != -1) {
-            // remove trailing new line to better do comparison
-            if (linelen > 0 && line[linelen-1] == '\n') {
-                line[linelen-1] = '\0';
-            }
-
-            // if the correct parameter is found,
-            // stop iterating through the file
-            if (strcmp(param_key, line) == 0) {
-                break;
-            }
-        }
-
-        // iterates through non-bin data points
-        for (int i = 0; i < 5; i++) {
-            // gets the next line which contains the BIN_COUNT data
-            linelen = getline(&line, &linecap, fp);
-
-            // remove trailing new line to better do comparison
-            if (linelen > 0 && line[linelen-1] == '\n') {
-                line[linelen-1] = '\0';
-            }
-
-            // gets the name of the data point being read
-            char* token = strtok(line, ":");
-
-            // writes the correct token value to the correct variable from file input
-            if (strcmp(token, "MEAN") == 0) {
-                // puts the mean value in the correct parameter spot
-                // based on current parameter choice
-                if (strcmp(param, "nowned") == 0) {
-                    nowned = atoi(strtok(NULL, " "));
-                } else if (strcmp(param, "nremote") == 0) {
-                    nremote = atoi(strtok(NULL, " "));
-                } else if (strcmp(param, "blocksize") == 0) {
-                    blocksz = atoi(strtok(NULL, " "));
-                } else if (strcmp(param, "stride") == 0) {
-                    stride = atoi(strtok(NULL, " "));
-                } else if (strcmp(param, "comm_partners") == 0) {
-                    nneighbors = atoi(strtok(NULL, " "));
-                }
-            } else if (strcmp(token, "STDEV") == 0) {
-                // puts the stdev value in the correct parameter spot
-                // based on current parameter choice
-                if (strcmp(param, "nowned") == 0) {
-                    nowned_stdv = atoi(strtok(NULL, " "));
-                } else if (strcmp(param, "nremote") == 0) {
-                    nremote_stdv = atoi(strtok(NULL, " "));
-                } else if (strcmp(param, "blocksize") == 0) {
-                    blocksz_stdv = atoi(strtok(NULL, " "));
-                } else if (strcmp(param, "stride") == 0) {
-                    stride_stdv = atoi(strtok(NULL, " "));
-                } else if (strcmp(param, "comm_partners") == 0) {
-                    nneighbors_stdv = atoi(strtok(NULL, " "));
-                }
-            }
-        }
-    }
+//    char* params[] = { "nowned",
+//                       "nremote",
+//                       "blocksize",
+//                       "stride",
+//                       "comm_partners" };
+//
+//    for (int index = 0; index < (sizeof(params) / sizeof(params[0])); index++) {
+//        char* param = params[index];
+//
+//        char param_key[25] = "PARAM: ";
+//        strcat(param_key, param);
+//
+//        FILE* fp = fopen(filepath, "r");
+//        if (fp == NULL) {
+//            fprintf(stderr, "Error: Unable to open file %s\n", filepath);
+//            exit(1);
+//        }
+//
+//        char* line = NULL;
+//        size_t linecap = 0;
+//        ssize_t linelen;
+//
+//        // iterates through lines in the file until we get to the line
+//        // that contains the parameter we're trying to generate for
+//        while ((linelen = getline(&line, &linecap, fp)) != -1) {
+//            // remove trailing new line to better do comparison
+//            if (linelen > 0 && line[linelen-1] == '\n') {
+//                line[linelen-1] = '\0';
+//            }
+//
+//            // if the correct parameter is found,
+//            // stop iterating through the file
+//            if (strcmp(param_key, line) == 0) {
+//                break;
+//            }
+//        }
+//
+//        // iterates through non-bin data points
+//        for (int i = 0; i < 5; i++) {
+//            // gets the next line which contains the BIN_COUNT data
+//            linelen = getline(&line, &linecap, fp);
+//
+//            // remove trailing new line to better do comparison
+//            if (linelen > 0 && line[linelen-1] == '\n') {
+//                line[linelen-1] = '\0';
+//            }
+//
+//            // gets the name of the data point being read
+//            char* token = strtok(line, ":");
+//
+//            // writes the correct token value to the correct variable from file input
+//            if (strcmp(token, "MEAN") == 0) {
+//                // puts the mean value in the correct parameter spot
+//                // based on current parameter choice
+//                if (strcmp(param, "nowned") == 0) {
+//                    nowned = atoi(strtok(NULL, " "));
+//                } else if (strcmp(param, "nremote") == 0) {
+//                    nremote = atoi(strtok(NULL, " "));
+//                } else if (strcmp(param, "blocksize") == 0) {
+//                    blocksz = atoi(strtok(NULL, " "));
+//                } else if (strcmp(param, "stride") == 0) {
+//                    stride = atoi(strtok(NULL, " "));
+//                } else if (strcmp(param, "comm_partners") == 0) {
+//                    nneighbors = atoi(strtok(NULL, " "));
+//                }
+//            } else if (strcmp(token, "STDEV") == 0) {
+//                // puts the stdev value in the correct parameter spot
+//                // based on current parameter choice
+//                if (strcmp(param, "nowned") == 0) {
+//                    nowned_stdv = atoi(strtok(NULL, " "));
+//                } else if (strcmp(param, "nremote") == 0) {
+//                    nremote_stdv = atoi(strtok(NULL, " "));
+//                } else if (strcmp(param, "blocksize") == 0) {
+//                    blocksz_stdv = atoi(strtok(NULL, " "));
+//                } else if (strcmp(param, "stride") == 0) {
+//                    stride_stdv = atoi(strtok(NULL, " "));
+//                } else if (strcmp(param, "comm_partners") == 0) {
+//                    nneighbors_stdv = atoi(strtok(NULL, " "));
+//                }
+//            }
+//        }
+//    }
 }
 
 bool setValue(){
