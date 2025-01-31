@@ -1,12 +1,12 @@
 #include <iostream>
 #include <memory>
 #include <type_traits>
-
+#include <cstdlib>
 #include <Cabana_Core.hpp>
 #include <Kokkos_Core.hpp>
 
 #include <string>
-#include <iostream>
+
 #include <algorithm>
 #include <tclap/CmdLine.h>
 
@@ -48,7 +48,7 @@ static int blocksz = -1;
 static int blocksz_stdv = -1;
 static int stride = -1;
 static int stride_stdv = -1;
-static int           unit_div = 1;
+static int unit_div = 1;
 static prefix unit_symbol = A;
 static std::string filepath = "";
 static distribution_t distribution_type = GAUSSIAN;
@@ -89,41 +89,231 @@ int gauss_dist(double mean, double stdev) {
 
 
 
+
+void parse_config_file() {
+    char* params[] = { "nowned",
+                       "nremote",
+                       "blocksize",
+                       "stride",
+                       "comm_partners" };
+
+    for (int index = 0; index < (sizeof(params) / sizeof(params[0])); index++) {
+        char* param = params[index];
+
+        char param_key[25] = "PARAM: ";
+        strcat(param_key, param);
+
+        FILE* fp = fopen(filepath, "r");
+        if (fp == NULL) {
+            fprintf(stderr, "Error: Unable to open file %s\n", filepath);
+            exit(1);
+        }
+
+        char* line = NULL;
+        size_t linecap = 0;
+        ssize_t linelen;
+
+        // iterates through lines in the file until we get to the line
+        // that contains the parameter we're trying to generate for
+        while ((linelen = getline(&line, &linecap, fp)) != -1) {
+            // remove trailing new line to better do comparison
+            if (linelen > 0 && line[linelen-1] == '\n') {
+                line[linelen-1] = '\0';
+            }
+
+            // if the correct parameter is found,
+            // stop iterating through the file
+            if (strcmp(param_key, line) == 0) {
+                break;
+            }
+        }
+
+        // iterates through non-bin data points
+        for (int i = 0; i < 5; i++) {
+            // gets the next line which contains the BIN_COUNT data
+            linelen = getline(&line, &linecap, fp);
+
+            // remove trailing new line to better do comparison
+            if (linelen > 0 && line[linelen-1] == '\n') {
+                line[linelen-1] = '\0';
+            }
+
+            // gets the name of the data point being read
+            char* token = strtok(line, ":");
+
+            // writes the correct token value to the correct variable from file input
+            if (strcmp(token, "MEAN") == 0) {
+                // puts the mean value in the correct parameter spot
+                // based on current parameter choice
+                if (strcmp(param, "nowned") == 0) {
+                    nowned = atoi(strtok(NULL, " "));
+                } else if (strcmp(param, "nremote") == 0) {
+                    nremote = atoi(strtok(NULL, " "));
+                } else if (strcmp(param, "blocksize") == 0) {
+                    blocksz = atoi(strtok(NULL, " "));
+                } else if (strcmp(param, "stride") == 0) {
+                    stride = atoi(strtok(NULL, " "));
+                } else if (strcmp(param, "comm_partners") == 0) {
+                    nneighbors = atoi(strtok(NULL, " "));
+                }
+            } else if (strcmp(token, "STDEV") == 0) {
+                // puts the stdev value in the correct parameter spot
+                // based on current parameter choice
+                if (strcmp(param, "nowned") == 0) {
+                    nowned_stdv = atoi(strtok(NULL, " "));
+                } else if (strcmp(param, "nremote") == 0) {
+                    nremote_stdv = atoi(strtok(NULL, " "));
+                } else if (strcmp(param, "blocksize") == 0) {
+                    blocksz_stdv = atoi(strtok(NULL, " "));
+                } else if (strcmp(param, "stride") == 0) {
+                    stride_stdv = atoi(strtok(NULL, " "));
+                } else if (strcmp(param, "comm_partners") == 0) {
+                    nneighbors_stdv = atoi(strtok(NULL, " "));
+                }
+            }
+        }
+    }
+}
+
+bool setValue(){
+  return true;
+}
+
+void exitError(const std::string& error_message) {
+    std::cerr << error_message << std::endl; // Use std::cerr for error messages
+    std::exit(-1); // Exit the program with error code
+}
+
+void parse_config_file() {
+    char* params[] = { "nowned",
+                       "nremote",
+                       "blocksize",
+                       "stride",
+                       "comm_partners" };
+
+    for (int index = 0; index < (sizeof(params) / sizeof(params[0])); index++) {
+        char* param = params[index];
+
+        char param_key[25] = "PARAM: ";
+        strcat(param_key, param);
+
+        FILE* fp = fopen(filepath, "r");
+        if (fp == NULL) {
+            fprintf(stderr, "Error: Unable to open file %s\n", filepath);
+            exit(1);
+        }
+
+        char* line = NULL;
+        size_t linecap = 0;
+        ssize_t linelen;
+
+        // iterates through lines in the file until we get to the line
+        // that contains the parameter we're trying to generate for
+        while ((linelen = getline(&line, &linecap, fp)) != -1) {
+            // remove trailing new line to better do comparison
+            if (linelen > 0 && line[linelen-1] == '\n') {
+                line[linelen-1] = '\0';
+            }
+
+            // if the correct parameter is found,
+            // stop iterating through the file
+            if (strcmp(param_key, line) == 0) {
+                break;
+            }
+        }
+
+        // iterates through non-bin data points
+        for (int i = 0; i < 5; i++) {
+            // gets the next line which contains the BIN_COUNT data
+            linelen = getline(&line, &linecap, fp);
+
+            // remove trailing new line to better do comparison
+            if (linelen > 0 && line[linelen-1] == '\n') {
+                line[linelen-1] = '\0';
+            }
+
+            // gets the name of the data point being read
+            char* token = strtok(line, ":");
+
+            // writes the correct token value to the correct variable from file input
+            if (strcmp(token, "MEAN") == 0) {
+                // puts the mean value in the correct parameter spot
+                // based on current parameter choice
+                if (strcmp(param, "nowned") == 0) {
+                    nowned = atoi(strtok(NULL, " "));
+                } else if (strcmp(param, "nremote") == 0) {
+                    nremote = atoi(strtok(NULL, " "));
+                } else if (strcmp(param, "blocksize") == 0) {
+                    blocksz = atoi(strtok(NULL, " "));
+                } else if (strcmp(param, "stride") == 0) {
+                    stride = atoi(strtok(NULL, " "));
+                } else if (strcmp(param, "comm_partners") == 0) {
+                    nneighbors = atoi(strtok(NULL, " "));
+                }
+            } else if (strcmp(token, "STDEV") == 0) {
+                // puts the stdev value in the correct parameter spot
+                // based on current parameter choice
+                if (strcmp(param, "nowned") == 0) {
+                    nowned_stdv = atoi(strtok(NULL, " "));
+                } else if (strcmp(param, "nremote") == 0) {
+                    nremote_stdv = atoi(strtok(NULL, " "));
+                } else if (strcmp(param, "blocksize") == 0) {
+                    blocksz_stdv = atoi(strtok(NULL, " "));
+                } else if (strcmp(param, "stride") == 0) {
+                    stride_stdv = atoi(strtok(NULL, " "));
+                } else if (strcmp(param, "comm_partners") == 0) {
+                    nneighbors_stdv = atoi(strtok(NULL, " "));
+                }
+            }
+        }
+    }
+}
+
+
+void setAndCheckValue(int& value, TCLAP::ValueArg<int>& arg, const char* errorMessage, int minValue = 0, int maxValue = INT_MAX) {
+  int tempValue = arg.getValue();
+
+  if (tempValue != -1) {
+    value = tempValue;
+  }
+
+  // General value check
+  if (value < minValue || value > maxValue) {
+    exitError(errorMessage);
+  }
+}
+
+
 void parseArgs(int argc, char **argv){
+
   try {
-        // Create the command line parser
         TCLAP::CmdLine cmd("\nNOTE: Setting parameters for the benchmark such as (neighbors, owned, remote, blocksize, and stride)"
                            "sets parameters to those values for the reference benchmark."
                            "Those parameters are then randomized for the irregular samples"
                            "where the user-set parameters become averages for the random generation."
                            "Use the `--disable-irregularity` flag to only run the reference benchmark.", ' ', "1.0");
 
-        // Arguments
-        TCLAP::ValueArg<std::string> filepathArg("f", "filepath", "Path to the BENCHMARK_CONFIG file", true, "", "string");
+        TCLAP::ValueArg<std::string> filepathArg("f", "filepath", "Path to the BENCHMARK_CONFIG file", false, "NOFILE", "string");
         TCLAP::ValueArg<int> typeSizeArg("t", "typesize", "Size of the variable being sent (in bytes)", false, 8, "int");
         TCLAP::ValueArg<int> samplesArg("I", "samples", "Number of random samples to generate", false, 25, "int");
         TCLAP::ValueArg<int> iterationsArg("i", "iterations", "Number of updates each sample performs", false, 100, "int");
-        TCLAP::ValueArg<int> neighborsArg("n", "neighbors", "Average number of neighbors each process communicates with", true, -1, "int");
-        TCLAP::ValueArg<int> neighborsStdvArg("N", "neighbors_stdv", "Standard deviation of the number of neighbors each process communicates with", true, -1, "int");
-        TCLAP::ValueArg<int> ownedAvgArg("o", "owned_avg", "Average byte count for data owned per node", true, -1, "int");
-        TCLAP::ValueArg<int> ownedStdvArg("O", "owned_stdv", "Standard deviation byte count for data owned per node", true, -1, "int");
-        TCLAP::ValueArg<int> remoteAvgArg("r", "remote_avg", "Average amount of data each process receives", true, -1, "int");
-        TCLAP::ValueArg<int> remoteStdvArg("R", "remote_stdv", "Standard deviation of the amount of data each process receives", true, -1, "int");
-        TCLAP::ValueArg<int> blockSizeAvgArg("b", "blocksize_avg", "Average size of transmitted blocks", true, -1, "int");
-        TCLAP::ValueArg<int> blockSizeStdvArg("B", "blocksize_stdv", "Standard deviation of transmitted block sizes", true, -1, "int");
-        TCLAP::ValueArg<int> strideArg("s", "stride", "Average size of stride", true, -1, "int");
-        TCLAP::ValueArg<int> strideStdvArg("T", "stride_stdv", "Standard deviation of stride", true, -1, "int");
-        TCLAP::ValueArg<int> seedArg("S", "seed", "Positive integer to be used as seed for random number generation", true, -1, "int");
-//        TCLAP::ValueArg<std::string> memSpaceArg("m", "memspace", "Choose from: host, cuda, openmp, opencl", false, "host", "string");
+        TCLAP::ValueArg<int> neighborsArg("n", "neighbors", "Average number of neighbors each process communicates with", false, -1, "int");
+        TCLAP::ValueArg<int> neighborsStdvArg("N", "neighbors_stdv", "Standard deviation of the number of neighbors each process communicates with", false, -1, "int");
+        TCLAP::ValueArg<int> ownedAvgArg("o", "owned_avg", "Average byte count for data owned per node", false, -1, "int");
+        TCLAP::ValueArg<int> ownedStdvArg("O", "owned_stdv", "Standard deviation byte count for data owned per node", false, -1, "int");
+        TCLAP::ValueArg<int> remoteAvgArg("r", "remote_avg", "Average amount of data each process receives", false, -1, "int");
+        TCLAP::ValueArg<int> remoteStdvArg("R", "remote_stdv", "Standard deviation of the amount of data each process receives", false, -1, "int");
+        TCLAP::ValueArg<int> blockSizeAvgArg("b", "blocksize_avg", "Average size of transmitted blocks", false, -1, "int");
+        TCLAP::ValueArg<int> blockSizeStdvArg("B", "blocksize_stdv", "Standard deviation of transmitted block sizes", false, -1, "int");
+        TCLAP::ValueArg<int> strideArg("s", "stride", "Average size of stride", false, -1, "int");
+        TCLAP::ValueArg<int> strideStdvArg("T", "stride_stdv", "Standard deviation of stride", false, -1, "int");
+        TCLAP::ValueArg<int> seedArg("S", "seed", "Positive integer to be used as seed for random number generation", false, -1, "int");
         TCLAP::ValueArg<std::string> distributionArg("d", "distribution", "Choose from: gaussian (default), empirical", false, "gaussian", "string");
         TCLAP::ValueArg<std::string> unitsArg("u", "units", "Choose from: a,b,k,m,g (auto, bytes, kilobytes, etc.)", false, "auto", "string");
 
-        // Optional flag argument for reporting
+
         TCLAP::SwitchArg reportParamsArg("", "report-params", "Enables parameter reporting for use with analysis scripts", false);
         TCLAP::SwitchArg disableirregularityArg("", "disable-irregularity", "Use the `--disable-irregularity` flag to only run the reference benchmark.", false);
-
-
-        // Add all arguments to the command line parser
         cmd.add(filepathArg);
         cmd.add(typeSizeArg);
         cmd.add(samplesArg);
@@ -151,125 +341,84 @@ void parseArgs(int argc, char **argv){
 
 
 
-        if (!std::filesystem::exists(filepath)) {
-            printf("ERROR: the specified filepath doesn't exist, exiting...\n");
-            exit(-1);
-        }
-        config_file_used = true;
-        std::string dist = distributionArg.getValue();
+        if (filepath != "NOFILE") {
+            if(std::filesystem::exists(filepath)) {
+                config_file_used = true;
+                parse_config_file();
 
-
-
-         typesize = typeSizeArg.getValue();
-
-         if (typesize < 1 || typesize > 8) {
-             printf("ERROR: Invalid typesize\n");
-             exit(-1);
-         }
-
-
-//numpes =00; \\todo
-        nsamples=samplesArg.getValue();
-
-        if (nsamples < 0){
-            printf("ERROR: Invalid number of samples\n");
-            exit(-1);
-        }
-
-        niterations=iterationsArg.getValue();
-        if (niterations < 0){
-          printf("ERROR: Invalid number of iterations\n");
-          exit(-1);
+            }else{
+                exitError("ERROR: the specified filepath doesn't exist, exiting...");
+            }
         }
 
 
 
 
-        nneighbors=neighborsArg.getValue();
-        if (nneighbors < 0){
-            printf("ERROR: Invalid number of neighbors\n");
-            exit(-1);
-        }
+    setAndCheckValue(typesize, typeSizeArg, "ERROR: Invalid typesize\n", 1, 8);
 
+    // For nsamples, no specific range, only non-negative check
+    setAndCheckValue(nsamples, samplesArg, "ERROR: Invalid number of samples\n", 0);
 
-        nneighbors_stdv=neighborsStdvArg.getValue();
+    // For niterations, same non-negative check
+    setAndCheckValue(niterations, iterationsArg, "ERROR: Invalid number of iterations\n", 0);
 
-        if (nneighbors_stdv < 0){
-            printf("ERROR: Invalid nighbors std\n");
-            exit(-1);
-        }
+    // For nneighbors, same non-negative check
+    setAndCheckValue(nneighbors, neighborsArg, "ERROR: Invalid number of neighbors\n", 0);
 
+    // For nneighbors_stdv, no specific range, only non-negative check
+    setAndCheckValue(nneighbors_stdv, neighborsStdvArg, "ERROR: Invalid neighbors std\n", 0);
 
+    // For nowned, no specific range, only non-negative check
+    setAndCheckValue(nowned, ownedAvgArg, "ERROR: Invalid number of owned\n", 0);
 
+    // For nowned_stdv, no specific range, only non-negative check
+    setAndCheckValue(nowned_stdv, ownedStdvArg, "ERROR: Invalid owned std\n", 0);
 
-        nowned=ownedAvgArg.getValue();
-        if (nneighbors_stdv < 0){
-            printf("ERROR: Invalid number of owned\n");
-            exit(-1);
-        }
+    // For nremote, no specific range, only non-negative check
+    setAndCheckValue(nremote, remoteAvgArg, "ERROR: Invalid number of remote\n", 0);
 
-        nowned_stdv=ownedStdvArg.getValue();
-        if (nneighbors_stdv < 0){
-            printf("ERROR: Invalid owned std\n");
-            exit(-1);
-        }
+    // For nremote_stdv, no specific range, only non-negative check
+    setAndCheckValue(nremote_stdv, remoteStdvArg, "ERROR: Invalid remote std\n", 0);
 
+    // For blocksz, no specific range, only non-negative check
+    setAndCheckValue(blocksz, blockSizeAvgArg, "ERROR: Invalid block size\n", 0);
 
-        nremote=remoteAvgArg.getValue();
-        if (nremote < 0){
-            printf("ERROR: Invalid number of remote\n");
-            exit(-1);
-        }
-        nremote_stdv=remoteStdvArg.getValue();
-        if (nremote_stdv < 0){
-            printf("ERROR: Invalid remote std\n");
-            exit(-1);
-        }
+    // For blocksz_stdv, no specific range, only non-negative check
+    setAndCheckValue(blocksz_stdv, blockSizeStdvArg, "ERROR: Invalid block size std\n", 0);
 
-        blocksz=blockSizeAvgArg.getValue();
-        if (blocksz < 0){
-          printf("ERROR: Invalid block size\n");
-          exit(-1);
-        }
-        blocksz_stdv=blockSizeStdvArg.getValue();
-        if (blocksz_stdv < 0){
-          printf("ERROR: Invalid block size\n");
-          exit(-1);
-        }
-        stride=strideArg.getValue();
-        if (stride < 0){
-          printf("ERROR: Invalid stride\n");
-        }
-        stride_stdv=strideStdvArg.getValue();
-        if (stride_stdv < 0){
-          printf("ERROR: Invalid stride std\n");
-           exit(-1);
+    // For stride, no specific range, only non-negative check
+    setAndCheckValue(stride, strideArg, "ERROR: Invalid stride\n", 0);
 
-        }
+    // For stride_stdv, no specific range, only non-negative check
+    setAndCheckValue(stride_stdv, strideStdvArg, "ERROR: Invalid stride std\n", 0);
+
 
 
         std::string unit = unitsArg.getValue();
 
-        if(unit=="auto" ||unit=="a" ) {
-            unit_symbol=A;
-            unit_div=0;
-        }else if(unit=="bytes" ||unit=="b") {
-            unit_symbol=A;
-            unit_div=0;
-        }else if(unit=="kilobytes" ||unit=="k") {
-            unit_symbol=K;
-            unit_div=1024 ;
-        }else if(unit=="megabytes" ||unit=="m") {
-            unit_symbol=M;
-            unit_div=1024*1024;
-        }else if(unit=="gigabytes" ||unit=="g") {
-            unit_symbol=G;
-            unit_div=1024*1024*1024;
-        }else {
-          printf("ERROR: Invalid formatting choice [b, k, m, g]\n");
-          exit(-1);
-        }
+        std::unordered_map<std::string, std::pair<char, int>> unit_map = {
+            {"auto", {A, 1}},
+            {"a", {A, 1}},
+            {"bytes", {A, 1}},
+            {"b", {A, 1}},
+            {"kilobytes", {K, 1024}},
+            {"k", {K, 1024}},
+            {"megabytes", {M, 1024 * 1024}},
+            {"m", {M, 1024 * 1024}},
+            {"gigabytes", {G, 1024 * 1024 * 1024}},
+            {"g", {G, 1024 * 1024 * 1024}}
+        };
 
+
+
+
+        auto it = unit_map.find(unit);
+        if (it != unit_map.end()) {
+            unit_symbol = it->second.first;
+            unit_div = it->second.second;
+        } else {
+            exitError("ERROR: Invalid formatting choice [b, k, m, g]");
+        }
 
 
         std::string distribution=distributionArg.getValue();
@@ -282,15 +431,16 @@ void parseArgs(int argc, char **argv){
                   || distribution == "e") {
           distribution_type=EMPIRICAL;
         }else {
-          printf("ERROR: Invalid distribution choice [empirical,gaussian]\n");
-          exit(-1);
-
+          exitError("ERROR: Invalid distribution choice [empirical,gaussian]\n");
         }
 
-        seed=seedArg.getValue();
-        if(seed==-1) {
+       int seedholder=seedArg.getValue();
+        if(seed!=-1&&seedholder==-1) {
           seed=time(NULL);
         }
+
+
+
         srand(seed);
 
         irregularity=disableirregularityArg.getValue();
