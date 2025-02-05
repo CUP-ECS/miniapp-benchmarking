@@ -10,7 +10,7 @@
 #include <algorithm>
 #include <tclap/CmdLine.h>
 
-
+#include <nlohmann/json.hpp>
 #include <cstdlib>
 
 #include <cmath>
@@ -20,6 +20,9 @@
 #include <string.h>
 #include <unistd.h>
 #include <stdbool.h>
+
+
+
 
 enum distribution {
     GAUSSIAN,
@@ -91,6 +94,31 @@ int gauss_dist(double mean, double stdev) {
 
 
 void parse_config_file() {
+  ifstream input_file("benchmark.json");
+  json j;
+  input_file >> j;
+
+  // Accessing the data
+  for (const auto& param : j["parameters"]) {
+    cout << "PARAM: " << param["name"] << endl;
+    cout << "BIN_COUNT: " << param["bin_count"] << endl;
+    cout << "MIN: " << param["min"] << endl;
+    cout << "MAX: " << param["max"] << endl;
+    cout << "MEAN: " << param["mean"] << endl;
+    cout << "STDEV: " << param["stdev"] << endl;
+
+    // Iterate through bins
+    for (const auto& bin : param["bins"]) {
+      cout << "BIN_MIN: " << bin["bin_min"] << ", ";
+      cout << "BIN_MAX: " << bin["bin_max"] << ", ";
+      cout << "BIN_PROP: " << bin["bin_prop"] << ", ";
+      cout << "BIN_MEAN: " << bin["bin_mean"] << ", ";
+      cout << "BIN_STDEV: " << bin["bin_stdev"] << endl;
+    }
+  }
+
+
+
 //    char* params[] = { "nowned",
 //                       "nremote",
 //                       "blocksize",
