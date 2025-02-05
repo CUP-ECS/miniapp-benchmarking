@@ -115,6 +115,7 @@ void parse_config_file() {
       cout << "BIN_MEAN: " << bin["bin_mean"] << ", ";
       cout << "BIN_STDEV: " << bin["bin_stdev"] << endl;
     }
+
   }
 
 
