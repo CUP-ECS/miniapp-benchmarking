@@ -532,22 +532,21 @@ void parse_config_file() {
 
   // Accessing the data
   for (const auto& param : j["parameters"]) {
-    cout << "PARAM: " << param["name"] << endl;
-    cout << "BIN_COUNT: " << param["bin_count"] << endl;
-    cout << "MIN: " << param["min"] << endl;
-    cout << "MAX: " << param["max"] << endl;
-    cout << "MEAN: " << param["mean"] << endl;
-    cout << "STDEV: " << param["stdev"] << endl;
+    printf("PARAM: %s\n", param["name"].get<std::string>().c_str());
+    printf("BIN_COUNT: %d\n", param["bin_count"].get<int>());
+    printf("MIN: %f\n", param["min"].get<double>());
+    printf("MAX: %f\n", param["max"].get<double>());
+    printf("MEAN: %f\n", param["mean"].get<double>());
+    printf("STDEV: %f\n", param["stdev"].get<double>());
 
     // Iterate through bins
     for (const auto& bin : param["bins"]) {
-      cout << "BIN_MIN: " << bin["bin_min"] << ", ";
-      cout << "BIN_MAX: " << bin["bin_max"] << ", ";
-      cout << "BIN_PROP: " << bin["bin_prop"] << ", ";
-      cout << "BIN_MEAN: " << bin["bin_mean"] << ", ";
-      cout << "BIN_STDEV: " << bin["bin_stdev"] << endl;
+      printf("BIN_MIN: %f, ", bin["bin_min"].get<double>());
+      printf("BIN_MAX: %f, ", bin["bin_max"].get<double>());
+      printf("BIN_PROP: %f, ", bin["bin_prop"].get<double>());
+      printf("BIN_MEAN: %f, ", bin["bin_mean"].get<double>());
+      printf("BIN_STDEV: %f\n", bin["bin_stdev"].get<double>());
     }
-
   }
 
 
@@ -788,13 +787,16 @@ void parseArgs(int argc, char **argv){
 
 
 
-        auto it = unit_map.find(unit);
-        if (it != unit_map.end()) {
-            unit_symbol = it->second.first;
-            unit_div = it->second.second;
-        } else {
-            exitError("ERROR: Invalid formatting choice [b, k, m, g]");
-        }
+    auto it = unit_map.find(unit);
+    if (it != unit_map.end()) {
+      char unit_symbol = it->second.first;
+      int unit_div = it->second.second;
+
+      std::cout << "Unit Symbol: " << unit_symbol << std::endl;
+      std::cout << "Unit Division: " << unit_div << std::endl;
+    } else {
+      exitError("ERROR: Invalid formatting choice [b, k, m, g]");
+    }
 
 
         std::string distribution=distributionArg.getValue();
