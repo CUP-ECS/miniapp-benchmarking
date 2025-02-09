@@ -799,6 +799,8 @@ void parseArgs(int argc, char **argv){
     }
 
 
+
+
         std::string distribution=distributionArg.getValue();
 
         if (distribution == "gaussian"  ||
