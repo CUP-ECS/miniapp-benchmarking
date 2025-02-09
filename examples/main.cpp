@@ -21,7 +21,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <stdbool.h>
-
+using json = nlohmann::json;
 
 
 
@@ -94,8 +94,8 @@ int gauss_dist(double mean, double stdev) {
 
 int empirical_dist(char param[]) {
 //    // set the parameter string to look for.
-//    char param_key[25] = "PARAM: ";
-//    strcat(param_key, param);
+    char param_key[25] = "PARAM: ";
+    strcat(param_key, param);
 //
 //    // attempts to open the file pointer
 //    // and ensure that the file can be read
