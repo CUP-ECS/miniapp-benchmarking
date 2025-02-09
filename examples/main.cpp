@@ -256,6 +256,7 @@ int empirical_dist(char param[]) {
 //    printf("\tbinSelection: %f\n", binSelection);
 //    printf("\tbinSum: %f\n", binSum);
 //    exit(1);
+    return -1;
 }
 
 
