@@ -92,7 +92,7 @@ int gauss_dist(double mean, double stdev) {
 }
 
 
-int empirical_dist(char param[]) {
+int empirical_dist(const char* param) {
 //    // set the parameter string to look for.
     char param_key[25] = "PARAM: ";
     strcat(param_key, param);
@@ -528,7 +528,7 @@ void migrationExample()
 void parse_config_file() {
   ifstream input_file("benchmark.json");
   json j;
-  input_file >> j;
+  std::input_file >> j;
 
   // Accessing the data
   for (const auto& param : j["parameters"]) {
