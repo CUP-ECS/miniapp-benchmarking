@@ -526,9 +526,9 @@ void migrationExample()
 
 
 void parse_config_file() {
-  ifstream input_file("benchmark.json");
+  std::ifstream input_file("benchmark.json");
   json j;
-  std::input_file >> j;
+  input_file >> j;
 
   // Accessing the data
   for (const auto& param : j["parameters"]) {
