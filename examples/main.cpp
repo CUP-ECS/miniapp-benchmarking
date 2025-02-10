@@ -535,114 +535,40 @@ void parse_config_file() {
     buffer << file.rdbuf();
     std::string input = buffer.str();
     nlohmann::json j = nlohmann::json::parse(input);
- j["parameters"][1];
     // Accessing the data
     for (const auto& param : j["parameters"]) {
-          printf("PARAM: %s\n", param["name"].get<std::string>().c_str());
-          printf("BIN_COUNT: %d\n", param["bin_count"].get<int>());
-          printf("MIN: %f\n", param["min"].get<double>());
-          printf("MAX: %f\n", param["max"].get<double>());
-          printf("MEAN: %f\n", param["mean"].get<double>());
-          printf("STDEV: %f\n", param["stdev"].get<double>());
+      std::string name = param["name"];
 
-          // Iterate through bins
-          for (const auto& bin : param["bins"]) {
-            printf("BIN_MIN: %f, ", bin["bin_min"].get<double>());
-            printf("BIN_MAX: %f, ", bin["bin_max"].get<double>());
-            printf("BIN_PROP: %f, ", bin["bin_prop"].get<double>());
-            printf("BIN_MEAN: %f, ", bin["bin_mean"].get<double>());
-            printf("BIN_STDEV: %f\n", bin["bin_stdev"].get<double>());
-          }
-      printf("test");
+
+      int mean =  param["mean"].get<int>();
+
+      int stddev = param["stddev"].get<int>();
+
+      if (name == "nowned") {
+          nowned=mean;
+          nowned_stdv = stddev;
+      } else if (str == "nremote") {
+          nremote=mean;
+          nremote_stdv = stddev;
+      } else if (str == "blocksize") {
+          blocksz=mean;
+          blocksz_stdv = stddev;
+      } else if (str == "comm_partners") {
+          nneighbors=mean;
+          nneighbors_stdv = stddev;
+      }else if (str == "stride") {
+          stride=mean;
+          stride_stdv = stddev;
+      }else {
+      //todo
+      }
+
+
     }
   }
 
 
 
-
-
-//    char* params[] = { "nowned",
-//                       "nremote",
-//                       "blocksize",
-//                       "stride",
-//                       "comm_partners" };
-//
-//    for (int index = 0; index < (sizeof(params) / sizeof(params[0])); index++) {
-//        char* param = params[index];
-//
-//        char param_key[25] = "PARAM: ";
-//        strcat(param_key, param);
-//
-//        FILE* fp = fopen(filepath, "r");
-//        if (fp == NULL) {
-//            fprintf(stderr, "Error: Unable to open file %s\n", filepath);
-//            exit(1);
-//        }
-//
-//        char* line = NULL;
-//        size_t linecap = 0;
-//        ssize_t linelen;
-//
-//        // iterates through lines in the file until we get to the line
-//        // that contains the parameter we're trying to generate for
-//        while ((linelen = getline(&line, &linecap, fp)) != -1) {
-//            // remove trailing new line to better do comparison
-//            if (linelen > 0 && line[linelen-1] == '\n') {
-//                line[linelen-1] = '\0';
-//            }
-//
-//            // if the correct parameter is found,
-//            // stop iterating through the file
-//            if (strcmp(param_key, line) == 0) {
-//                break;
-//            }
-//        }
-//
-//        // iterates through non-bin data points
-//        for (int i = 0; i < 5; i++) {
-//            // gets the next line which contains the BIN_COUNT data
-//            linelen = getline(&line, &linecap, fp);
-//
-//            // remove trailing new line to better do comparison
-//            if (linelen > 0 && line[linelen-1] == '\n') {
-//                line[linelen-1] = '\0';
-//            }
-//
-//            // gets the name of the data point being read
-//            char* token = strtok(line, ":");
-//
-//            // writes the correct token value to the correct variable from file input
-//            if (strcmp(token, "MEAN") == 0) {
-//                // puts the mean value in the correct parameter spot
-//                // based on current parameter choice
-//                if (strcmp(param, "nowned") == 0) {
-//                    nowned = atoi(strtok(NULL, " "));
-//                } else if (strcmp(param, "nremote") == 0) {
-//                    nremote = atoi(strtok(NULL, " "));
-//                } else if (strcmp(param, "blocksize") == 0) {
-//                    blocksz = atoi(strtok(NULL, " "));
-//                } else if (strcmp(param, "stride") == 0) {
-//                    stride = atoi(strtok(NULL, " "));
-//                } else if (strcmp(param, "comm_partners") == 0) {
-//                    nneighbors = atoi(strtok(NULL, " "));
-//                }
-//            } else if (strcmp(token, "STDEV") == 0) {
-//                // puts the stdev value in the correct parameter spot
-//                // based on current parameter choice
-//                if (strcmp(param, "nowned") == 0) {
-//                    nowned_stdv = atoi(strtok(NULL, " "));
-//                } else if (strcmp(param, "nremote") == 0) {
-//                    nremote_stdv = atoi(strtok(NULL, " "));
-//                } else if (strcmp(param, "blocksize") == 0) {
-//                    blocksz_stdv = atoi(strtok(NULL, " "));
-//                } else if (strcmp(param, "stride") == 0) {
-//                    stride_stdv = atoi(strtok(NULL, " "));
-//                } else if (strcmp(param, "comm_partners") == 0) {
-//                    nneighbors_stdv = atoi(strtok(NULL, " "));
-//                }
-//            }
-//        }
-//    }
 }
 
 bool setValue(){
@@ -872,13 +798,14 @@ int main(int argc, char** argv)
   MPI_Init( &argc, &argv );
   {
     parse_config_file();
+
+    parseArgs(argc, argv);
     Kokkos::ScopeGuard scope_guard( argc, argv );
 
     migrationExample();
   }
   MPI_Finalize();
 
-//    parseArgs(argc, argv);
 
 
 
