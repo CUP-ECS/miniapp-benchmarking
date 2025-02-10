@@ -547,16 +547,16 @@ void parse_config_file() {
       if (name == "nowned") {
           nowned=mean;
           nowned_stdv = stddev;
-      } else if (str == "nremote") {
+      } else if (name == "nremote") {
           nremote=mean;
           nremote_stdv = stddev;
-      } else if (str == "blocksize") {
+      } else if (name == "blocksize") {
           blocksz=mean;
           blocksz_stdv = stddev;
-      } else if (str == "comm_partners") {
+      } else if (name == "comm_partners") {
           nneighbors=mean;
           nneighbors_stdv = stddev;
-      }else if (str == "stride") {
+      }else if (name == "stride") {
           stride=mean;
           stride_stdv = stddev;
       }else {
