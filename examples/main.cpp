@@ -658,16 +658,21 @@ void parseArgs(int argc, char **argv){
 
         if (filepath != "NOFILE") {
 
-
-
-            if(std::filesystem::exists(filepath))
-          {
-                config_file_used = true;
-                parse_config_file();
-
-            }else{
-                exitError("ERROR: the specified filepath doesn't exist, exiting...");
-            }
+          std::cout << "Checking existence of: " << filepath << std::endl;
+          if (std::filesystem::exists(filepath)) {
+            std::cout << "File exists!" << std::endl;
+          } else {
+            std::cout << "File does not exist!" << std::endl;
+          }
+//
+//            if(std::filesystem::exists(filepath))
+//          {
+//                config_file_used = true;
+//                parse_config_file();
+//
+//            }else{
+//                exitError("ERROR: the specified filepath doesn't exist, exiting...");
+//            }
         }
 
 
