@@ -543,7 +543,7 @@ void parse_config_file() {
 
       int mean =  param["mean"].get<int>();
 
-      int stddev = param["stddev"].get<int>();
+      int stddev = param["stdev"].get<int>();
 
       if (name == "nowned") {
           nowned=mean;
