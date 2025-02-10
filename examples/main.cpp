@@ -542,6 +542,7 @@ void parse_config_file() {
 printf("test\n");
 fflush(stdout);
 
+
       int mean =  param["mean"].get<int>();
 
       int stddev = param["stdev"].get<int>();
