@@ -535,37 +535,37 @@ void parse_config_file() {
     buffer << file.rdbuf();
     std::string input = buffer.str();
     nlohmann::json j = nlohmann::json::parse(input);
-    // Accessing the data
-//    for (const auto& param : j["parameters"]) {
-//
-//      std::string name = param["name"].get<std::string>();
-//
-//
-//      int mean =  param["mean"].get<int>();
-//
-//      int stddev = param["stddev"].get<int>();
-//
-//      if (name == "nowned") {
-//          nowned=mean;
-//          nowned_stdv = stddev;
-//      } else if (name == "nremote") {
-//          nremote=mean;
-//          nremote_stdv = stddev;
-//      } else if (name == "blocksize") {
-//          blocksz=mean;
-//          blocksz_stdv = stddev;
-//      } else if (name == "comm_partners") {
-//          nneighbors=mean;
-//          nneighbors_stdv = stddev;
-//      }else if (name == "stride") {
-//          stride=mean;
-//          stride_stdv = stddev;
-//      }else {
-//      //todo
-//      }
-//
-//
-//    }
+//     Accessing the data
+    for (const auto& param : j["parameters"]) {
+
+      std::string name = param["name"].get<std::string>();
+
+
+      int mean =  param["mean"].get<int>();
+
+      int stddev = param["stddev"].get<int>();
+
+      if (name == "nowned") {
+          nowned=mean;
+          nowned_stdv = stddev;
+      } else if (name == "nremote") {
+          nremote=mean;
+          nremote_stdv = stddev;
+      } else if (name == "blocksize") {
+          blocksz=mean;
+          blocksz_stdv = stddev;
+      } else if (name == "comm_partners") {
+          nneighbors=mean;
+          nneighbors_stdv = stddev;
+      }else if (name == "stride") {
+          stride=mean;
+          stride_stdv = stddev;
+      }else {
+      //todo
+      }
+
+
+    }
   }
 
 
@@ -665,7 +665,7 @@ void parseArgs(int argc, char **argv){
                 parse_config_file();
 
 //            }else{
-                exitError("ERROR: the specified filepath doesn't exist, exiting...");
+//                exitError("ERROR: the specified filepath doesn't exist, exiting...");
             }
         }
 
