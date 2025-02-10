@@ -659,44 +659,33 @@ void parseArgs(int argc, char **argv){
 
 
 
-//            if(std::filesystem::exists(filepath))
+            if(std::filesystem::exists(filepath))
           {
                 config_file_used = true;
                 parse_config_file();
 
-//            }else{
-//                exitError("ERROR: the specified filepath doesn't exist, exiting...");
+            }else{
+                exitError("ERROR: the specified filepath doesn't exist, exiting...");
             }
         }
 
 
-  printf("passed");
-    fflush(stdout);
 
     setAndCheckValue(typesize, typeSizeArg, "ERROR: Invalid typesize\n", 1, 8);
 
-  printf("passed");
-    fflush(stdout);
 
     // For nsamples, no specific range, only non-negative check
     setAndCheckValue(nsamples, samplesArg, "ERROR: Invalid number of samples\n", 0);
 
 
-  printf("passed");
-    fflush(stdout);
     // For niterations, same non-negative check
     setAndCheckValue(niterations, iterationsArg, "ERROR: Invalid number of iterations\n", 0);
-  printf("passed");
-    fflush(stdout);
     // For nneighbors, same non-negative check
     setAndCheckValue(nneighbors, neighborsArg, "ERROR: Invalid number of neighbors\n", 0);
-  printf("passed");
-    fflush(stdout);
     // For nneighbors_stdv, no specific range, only non-negative check
     setAndCheckValue(nneighbors_stdv, neighborsStdvArg, "ERROR: Invalid neighbors std\n", 0);
 
-  printf("passed");
-    fflush(stdout);
+
     // For nowned, no specific range, only non-negative check
     setAndCheckValue(nowned, ownedAvgArg, "ERROR: Invalid number of owned\n", 0);
 

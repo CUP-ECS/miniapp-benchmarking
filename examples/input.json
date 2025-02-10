@@ -70,6 +70,26 @@
         {"bin_min": 2834, "bin_max": 3177, "bin_prop": 0.00300525920360631121, "bin_mean": 2994, "bin_stdev": 90},
         {"bin_min": 3177, "bin_max": 3520, "bin_prop": 0.00030052592036063113, "bin_mean": 3278, "bin_stdev": 44}
       ]
+    },
+    {
+      "name": "stride",
+      "bin_count": 10,
+      "min": 88,
+      "max": 3520,
+      "mean": 5,
+      "stdev": 6,
+      "bins": [
+        {"bin_min": 88, "bin_max": 431, "bin_prop": 0.67310293012772348664, "bin_mean": 230, "bin_stdev": 91},
+        {"bin_min": 431, "bin_max": 774, "bin_prop": 0.20728775356874529212, "bin_mean": 504, "bin_stdev": 79},
+        {"bin_min": 774, "bin_max": 1118, "bin_prop": 0.00428249436513899323, "bin_mean": 829, "bin_stdev": 62},
+        {"bin_min": 1118, "bin_max": 1461, "bin_prop": 0.00165289256198347103, "bin_mean": 1336, "bin_stdev": 70},
+        {"bin_min": 1461, "bin_max": 1804, "bin_prop": 0.01442524417731029344, "bin_mean": 1674, "bin_stdev": 89},
+        {"bin_min": 1804, "bin_max": 2147, "bin_prop": 0.03621337340345604644, "bin_mean": 1992, "bin_stdev": 93},
+        {"bin_min": 2147, "bin_max": 2490, "bin_prop": 0.04169797145003756311, "bin_mean": 2323, "bin_stdev": 97},
+        {"bin_min": 2490, "bin_max": 2834, "bin_prop": 0.01795642374154770779, "bin_mean": 2653, "bin_stdev": 93},
+        {"bin_min": 2834, "bin_max": 3177, "bin_prop": 0.00300525920360631121, "bin_mean": 2994, "bin_stdev": 90},
+        {"bin_min": 3177, "bin_max": 3520, "bin_prop": 0.00030052592036063113, "bin_mean": 3278, "bin_stdev": 44}
+      ]
     }
   ]
 }
