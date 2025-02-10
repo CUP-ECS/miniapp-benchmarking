@@ -538,17 +538,20 @@ void parse_config_file() {
 //     Accessing the data
     for (const auto& param : j["parameters"]) {
 
-   //   std::string name = param["name"].get<std::string>();
+
+      printf("test 5\n");
+
+      std::string name = param["name"].get<std::string>();
 printf("test 4\n");
 fflush(stdout);
 
 
-    //  int mean =  param["mean"].get<int>();
+      int mean =  param["mean"].get<int>();
 
 printf("test 2\n");
 fflush(stdout);
 
-    //  int stddev = param["stdev"].get<int>();
+      int stddev = param["stdev"].get<int>();
 
 printf("test 1\n");
 fflush(stdout);
