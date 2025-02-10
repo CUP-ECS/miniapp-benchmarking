@@ -657,9 +657,10 @@ void parseArgs(int argc, char **argv){
 
 
         if (filepath != "NOFILE") {
+          std::filesystem::path p(filepath);
 
           std::cout << "Checking existence of: " << filepath << std::endl;
-          if (std::filesystem::exists(filepath)) {
+          if (std::filesystem::exists(p)) {
             std::cout << "File exists!" << std::endl;
           } else {
             std::cout << "File does not exist!" << std::endl;
