@@ -539,7 +539,8 @@ void parse_config_file() {
     for (const auto& param : j["parameters"]) {
 
       std::string name = param["name"].get<std::string>();
-
+printf("test\n");
+fflush(stdout);
 
       int mean =  param["mean"].get<int>();
 
