@@ -526,7 +526,7 @@ void migrationExample()
 
 
 void parse_config_file() {
-  std::ifstream input_file("benchmark.json");
+  std::ifstream input_file("input.json");
   json j;
   input_file >> j;
 
@@ -712,7 +712,7 @@ void parseArgs(int argc, char **argv){
 
 
         filepath = filepathArg.getValue();
-        bool config_file_used = false;
+        bool config_file_used = false;//todo
 
 
 
@@ -858,7 +858,7 @@ void parseArgs(int argc, char **argv){
 int main(int argc, char** argv)
 {
 
-
+  parse_config_file() ;
   MPI_Init( &argc, &argv );
   {
     Kokkos::ScopeGuard scope_guard( argc, argv );
