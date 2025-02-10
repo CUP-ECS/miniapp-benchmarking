@@ -666,6 +666,7 @@ void parseArgs(int argc, char **argv){
             std::cout << "File does not exist!" << std::endl;
           }
 //
+
             if(std::filesystem::exists(p))
           {
                 config_file_used = true;
