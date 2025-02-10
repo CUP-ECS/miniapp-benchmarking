@@ -532,21 +532,22 @@ void parse_config_file() {
 
   // Accessing the data
   for (const auto& param : j["parameters"]) {
-    printf("PARAM: %s\n", param["name"].get<std::string>().c_str());
-    printf("BIN_COUNT: %d\n", param["bin_count"].get<int>());
-    printf("MIN: %f\n", param["min"].get<double>());
-    printf("MAX: %f\n", param["max"].get<double>());
-    printf("MEAN: %f\n", param["mean"].get<double>());
-    printf("STDEV: %f\n", param["stdev"].get<double>());
-
-    // Iterate through bins
-    for (const auto& bin : param["bins"]) {
-      printf("BIN_MIN: %f, ", bin["bin_min"].get<double>());
-      printf("BIN_MAX: %f, ", bin["bin_max"].get<double>());
-      printf("BIN_PROP: %f, ", bin["bin_prop"].get<double>());
-      printf("BIN_MEAN: %f, ", bin["bin_mean"].get<double>());
-      printf("BIN_STDEV: %f\n", bin["bin_stdev"].get<double>());
-    }
+//    printf("PARAM: %s\n", param["name"].get<std::string>().c_str());
+//    printf("BIN_COUNT: %d\n", param["bin_count"].get<int>());
+//    printf("MIN: %f\n", param["min"].get<double>());
+//    printf("MAX: %f\n", param["max"].get<double>());
+//    printf("MEAN: %f\n", param["mean"].get<double>());
+//    printf("STDEV: %f\n", param["stdev"].get<double>());
+//
+//    // Iterate through bins
+//    for (const auto& bin : param["bins"]) {
+//      printf("BIN_MIN: %f, ", bin["bin_min"].get<double>());
+//      printf("BIN_MAX: %f, ", bin["bin_max"].get<double>());
+//      printf("BIN_PROP: %f, ", bin["bin_prop"].get<double>());
+//      printf("BIN_MEAN: %f, ", bin["bin_mean"].get<double>());
+//      printf("BIN_STDEV: %f\n", bin["bin_stdev"].get<double>());
+//    }
+      printf("test");
   }
 
 
