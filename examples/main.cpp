@@ -576,7 +576,8 @@ bool setValue(){
 }
 
 void exitError(const std::string& error_message) {
-    std::cerr << error_message << std::endl; // Use std::cerr for error messages
+    std::cerr << error_message << std::flush; // Use std::cerr for error messages
+
     std::exit(-1); // Exit the program with error code
 }
 
