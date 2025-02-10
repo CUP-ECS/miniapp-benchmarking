@@ -539,22 +539,18 @@ void parse_config_file() {
     for (const auto& param : j["parameters"]) {
 
 
-      printf("test 5\n");
 
       std::string name = param["name"].get<std::string>();
-printf("test 4\n");
-fflush(stdout);
+
 
 
       int mean =  param["mean"].get<int>();
 
-printf("test 2\n");
-fflush(stdout);
+
 
       int stddev = param["stdev"].get<int>();
 
-printf("test 1\n");
-fflush(stdout);
+
       if (name == "nowned") {
           nowned=mean;
           nowned_stdv = stddev;
@@ -683,135 +679,135 @@ void parseArgs(int argc, char **argv){
 
   printf("\n\n\n passed\n\n");
     fflush(stdout);
-//
-//    setAndCheckValue(typesize, typeSizeArg, "ERROR: Invalid typesize\n", 1, 8);
-//
-//  printf("passed");
-//    fflush(stdout);
-//
-//    // For nsamples, no specific range, only non-negative check
-//    setAndCheckValue(nsamples, samplesArg, "ERROR: Invalid number of samples\n", 0);
-//
-//
-//  printf("passed");
-//    fflush(stdout);
-//    // For niterations, same non-negative check
-//    setAndCheckValue(niterations, iterationsArg, "ERROR: Invalid number of iterations\n", 0);
-//  printf("passed");
-//    fflush(stdout);
-//    // For nneighbors, same non-negative check
-//    setAndCheckValue(nneighbors, neighborsArg, "ERROR: Invalid number of neighbors\n", 0);
-//  printf("passed");
-//    fflush(stdout);
-//    // For nneighbors_stdv, no specific range, only non-negative check
-//    setAndCheckValue(nneighbors_stdv, neighborsStdvArg, "ERROR: Invalid neighbors std\n", 0);
-//
-//  printf("passed");
-//    fflush(stdout);
-//    // For nowned, no specific range, only non-negative check
-//    setAndCheckValue(nowned, ownedAvgArg, "ERROR: Invalid number of owned\n", 0);
-//
-//    // For nowned_stdv, no specific range, only non-negative check
-//    setAndCheckValue(nowned_stdv, ownedStdvArg, "ERROR: Invalid owned std\n", 0);
-//
-//    // For nremote, no specific range, only non-negative check
-//    setAndCheckValue(nremote, remoteAvgArg, "ERROR: Invalid number of remote\n", 0);
-//
-//    // For nremote_stdv, no specific range, only non-negative check
-//    setAndCheckValue(nremote_stdv, remoteStdvArg, "ERROR: Invalid remote std\n", 0);
-//
-//    // For blocksz, no specific range, only non-negative check
-//    setAndCheckValue(blocksz, blockSizeAvgArg, "ERROR: Invalid block size\n", 0);
-//
-//    // For blocksz_stdv, no specific range, only non-negative check
-//    setAndCheckValue(blocksz_stdv, blockSizeStdvArg, "ERROR: Invalid block size std\n", 0);
-//
-//    // For stride, no specific range, only non-negative check
-//    setAndCheckValue(stride, strideArg, "ERROR: Invalid stride\n", 0);
-//
-//    // For stride_stdv, no specific range, only non-negative check
-//    setAndCheckValue(stride_stdv, strideStdvArg, "ERROR: Invalid stride std\n", 0);
-//
-//    printf("passed");
-//    fflush(stdout);
-//
-//        std::string unit = unitsArg.getValue();
-//
-//        std::unordered_map<std::string, std::pair<char, int>> unit_map = {
-//            {"auto", {A, 1}},
-//            {"a", {A, 1}},
-//            {"bytes", {A, 1}},
-//            {"b", {A, 1}},
-//            {"kilobytes", {K, 1024}},
-//            {"k", {K, 1024}},
-//            {"megabytes", {M, 1024 * 1024}},
-//            {"m", {M, 1024 * 1024}},
-//            {"gigabytes", {G, 1024 * 1024 * 1024}},
-//            {"g", {G, 1024 * 1024 * 1024}}
-//        };
-//
-//
-//
-//
-//    auto it = unit_map.find(unit);
-//    if (it != unit_map.end()) {
-//      char unit_symbol = it->second.first;
-//      int unit_div = it->second.second;
-//
-//      std::cout << "Unit Symbol: " << unit_symbol << std::endl;
-//      std::cout << "Unit Division: " << unit_div << std::endl;
-//    } else {
-//      exitError("ERROR: Invalid formatting choice [b, k, m, g]");
-//    }
-//
-//
-//
-//
-//        std::string distribution=distributionArg.getValue();
-//
-//        if (distribution == "gaussian"  ||
-//            distribution == "g") {
-//          distribution_type = GAUSSIAN;
-//
-//        }else if (distribution == "empirical"
-//                  || distribution == "e") {
-//          distribution_type=EMPIRICAL;
-//        }else {
-//          exitError("ERROR: Invalid distribution choice [empirical,gaussian]\n");
-//        }
-//
-//       int seedholder=seedArg.getValue();
-//        if(seed!=-1&&seedholder==-1) {
-//          seed=time(NULL);
-//        }
-//
-//
-//
-//        srand(seed);
-//
-//        irregularity=disableirregularityArg.getValue();
-//
-//
-//        //        irregularity_owned
-//        //        irregularity_neighbors
-//        //        irregularity_stride
-//        //        irregularity_blocksz
-//        //        irregularity_remote
-//        //        report_params
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
+    setAndCheckValue(typesize, typeSizeArg, "ERROR: Invalid typesize\n", 1, 8);
+
+  printf("passed");
+    fflush(stdout);
+
+    // For nsamples, no specific range, only non-negative check
+    setAndCheckValue(nsamples, samplesArg, "ERROR: Invalid number of samples\n", 0);
+
+
+  printf("passed");
+    fflush(stdout);
+    // For niterations, same non-negative check
+    setAndCheckValue(niterations, iterationsArg, "ERROR: Invalid number of iterations\n", 0);
+  printf("passed");
+    fflush(stdout);
+    // For nneighbors, same non-negative check
+    setAndCheckValue(nneighbors, neighborsArg, "ERROR: Invalid number of neighbors\n", 0);
+  printf("passed");
+    fflush(stdout);
+    // For nneighbors_stdv, no specific range, only non-negative check
+    setAndCheckValue(nneighbors_stdv, neighborsStdvArg, "ERROR: Invalid neighbors std\n", 0);
+
+  printf("passed");
+    fflush(stdout);
+    // For nowned, no specific range, only non-negative check
+    setAndCheckValue(nowned, ownedAvgArg, "ERROR: Invalid number of owned\n", 0);
+
+    // For nowned_stdv, no specific range, only non-negative check
+    setAndCheckValue(nowned_stdv, ownedStdvArg, "ERROR: Invalid owned std\n", 0);
+
+    // For nremote, no specific range, only non-negative check
+    setAndCheckValue(nremote, remoteAvgArg, "ERROR: Invalid number of remote\n", 0);
+
+    // For nremote_stdv, no specific range, only non-negative check
+    setAndCheckValue(nremote_stdv, remoteStdvArg, "ERROR: Invalid remote std\n", 0);
+
+    // For blocksz, no specific range, only non-negative check
+    setAndCheckValue(blocksz, blockSizeAvgArg, "ERROR: Invalid block size\n", 0);
+
+    // For blocksz_stdv, no specific range, only non-negative check
+    setAndCheckValue(blocksz_stdv, blockSizeStdvArg, "ERROR: Invalid block size std\n", 0);
+
+    // For stride, no specific range, only non-negative check
+    setAndCheckValue(stride, strideArg, "ERROR: Invalid stride\n", 0);
+
+    // For stride_stdv, no specific range, only non-negative check
+    setAndCheckValue(stride_stdv, strideStdvArg, "ERROR: Invalid stride std\n", 0);
+
+    printf("passed");
+    fflush(stdout);
+
+        std::string unit = unitsArg.getValue();
+
+        std::unordered_map<std::string, std::pair<char, int>> unit_map = {
+            {"auto", {A, 1}},
+            {"a", {A, 1}},
+            {"bytes", {A, 1}},
+            {"b", {A, 1}},
+            {"kilobytes", {K, 1024}},
+            {"k", {K, 1024}},
+            {"megabytes", {M, 1024 * 1024}},
+            {"m", {M, 1024 * 1024}},
+            {"gigabytes", {G, 1024 * 1024 * 1024}},
+            {"g", {G, 1024 * 1024 * 1024}}
+        };
+
+
+
+
+    auto it = unit_map.find(unit);
+    if (it != unit_map.end()) {
+      char unit_symbol = it->second.first;
+      int unit_div = it->second.second;
+
+      std::cout << "Unit Symbol: " << unit_symbol << std::endl;
+      std::cout << "Unit Division: " << unit_div << std::endl;
+    } else {
+      exitError("ERROR: Invalid formatting choice [b, k, m, g]");
+    }
+
+
+
+
+        std::string distribution=distributionArg.getValue();
+
+        if (distribution == "gaussian"  ||
+            distribution == "g") {
+          distribution_type = GAUSSIAN;
+
+        }else if (distribution == "empirical"
+                  || distribution == "e") {
+          distribution_type=EMPIRICAL;
+        }else {
+          exitError("ERROR: Invalid distribution choice [empirical,gaussian]\n");
+        }
+
+       int seedholder=seedArg.getValue();
+        if(seed!=-1&&seedholder==-1) {
+          seed=time(NULL);
+        }
+
+
+
+        srand(seed);
+
+        irregularity=disableirregularityArg.getValue();
+
+
+        //        irregularity_owned
+        //        irregularity_neighbors
+        //        irregularity_stride
+        //        irregularity_blocksz
+        //        irregularity_remote
+        //        report_params
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     }
