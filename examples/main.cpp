@@ -867,9 +867,10 @@ void parseArgs(int argc, char **argv){
 int main(int argc, char** argv)
 {
 
-  parse_config_file() ;
+
   MPI_Init( &argc, &argv );
   {
+    parse_config_file();
     Kokkos::ScopeGuard scope_guard( argc, argv );
 
     migrationExample();
