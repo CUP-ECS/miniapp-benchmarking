@@ -526,29 +526,36 @@ void migrationExample()
 
 
 void parse_config_file() {
-  std::ifstream input_file("input.json");
-  json j;
-  input_file >> j;
-
-  // Accessing the data
-  for (const auto& param : j["parameters"]) {
-//    printf("PARAM: %s\n", param["name"].get<std::string>().c_str());
-//    printf("BIN_COUNT: %d\n", param["bin_count"].get<int>());
-//    printf("MIN: %f\n", param["min"].get<double>());
-//    printf("MAX: %f\n", param["max"].get<double>());
-//    printf("MEAN: %f\n", param["mean"].get<double>());
-//    printf("STDEV: %f\n", param["stdev"].get<double>());
-//
-//    // Iterate through bins
-//    for (const auto& bin : param["bins"]) {
-//      printf("BIN_MIN: %f, ", bin["bin_min"].get<double>());
-//      printf("BIN_MAX: %f, ", bin["bin_max"].get<double>());
-//      printf("BIN_PROP: %f, ", bin["bin_prop"].get<double>());
-//      printf("BIN_MEAN: %f, ", bin["bin_mean"].get<double>());
-//      printf("BIN_STDEV: %f\n", bin["bin_stdev"].get<double>());
-//    }
+  std::ifstream file("input.json");
+  if (!file.is_open()) {
+    std::cerr << "Error: Could not open file!" << std::endl;
+  } else {
+    std::stringstream buffer;
+    buffer << file.rdbuf();
+    std::string input = buffer.str();
+    nlohmann::json j = nlohmann::json::parse(input);
+    // Accessing the data
+    for (const auto& param : j["parameters"]) {
+      //    printf("PARAM: %s\n", param["name"].get<std::string>().c_str());
+      //    printf("BIN_COUNT: %d\n", param["bin_count"].get<int>());
+      //    printf("MIN: %f\n", param["min"].get<double>());
+      //    printf("MAX: %f\n", param["max"].get<double>());
+      //    printf("MEAN: %f\n", param["mean"].get<double>());
+      //    printf("STDEV: %f\n", param["stdev"].get<double>());
+      //
+      //    // Iterate through bins
+      //    for (const auto& bin : param["bins"]) {
+      //      printf("BIN_MIN: %f, ", bin["bin_min"].get<double>());
+      //      printf("BIN_MAX: %f, ", bin["bin_max"].get<double>());
+      //      printf("BIN_PROP: %f, ", bin["bin_prop"].get<double>());
+      //      printf("BIN_MEAN: %f, ", bin["bin_mean"].get<double>());
+      //      printf("BIN_STDEV: %f\n", bin["bin_stdev"].get<double>());
+      //    }
       printf("test");
+    }
   }
+
+
 
 
 
