@@ -797,7 +797,8 @@ int main(int argc, char** argv)
 
   MPI_Init( &argc, &argv );
   {
-    parse_config_file();
+
+
 
     parseArgs(argc, argv);
     Kokkos::ScopeGuard scope_guard( argc, argv );
