@@ -526,7 +526,8 @@ void migrationExample()
 
 
 void parse_config_file() {
-  std::ifstream file("input.json");
+  std::ifstream file("/g/g20/bacon4/irregular-benchmarking/build/examples/input.json");
+
   if (!file.is_open()) {
     std::cerr << "Error: Could not open file!" << std::endl;
   } else {
