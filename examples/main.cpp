@@ -666,7 +666,7 @@ void parseArgs(int argc, char **argv){
 
 
     if (filepath != "NOFILE") {
-      std::filesystem::path p(filepath);
+//      std::filesystem::path p(filepath);
 
 
 //      if(std::filesystem::exists(p))
