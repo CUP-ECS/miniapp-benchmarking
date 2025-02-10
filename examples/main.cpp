@@ -703,7 +703,8 @@ void parseArgs(int argc, char **argv){
     // For stride_stdv, no specific range, only non-negative check
     setAndCheckValue(stride_stdv, strideStdvArg, "ERROR: Invalid stride std\n", 0);
 
-
+    printf("passed");
+    fflush(stdout);
 
         std::string unit = unitsArg.getValue();
 
