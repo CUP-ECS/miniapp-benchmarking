@@ -671,12 +671,15 @@ void parseArgs(int argc, char **argv){
 
         std::filesystem::path p(filepath);
 
-//        // Check if path exists and is a file
-//        if (std::filesystem::exists(p)) {
-//          std::cout << "The file exists." << std::endl;
-//        } else {
-//          std::cout << "The file does not exist." << std::endl;
-//        }
+        // Check if path exists and is a file
+        if (std::filesystem::exists(p)) {
+          std::cout << "The file exists." << std::endl;
+        } else {
+          std::cout << "The file does not exist." << std::endl;
+        }
+
+  printf("\n\n\n passed\n\n");
+    fflush(stdout);
       } catch (const std::exception& e) {
         std::cerr << "Error: " << e.what() << std::endl;
       }
