@@ -535,6 +535,7 @@ void parse_config_file() {
     buffer << file.rdbuf();
     std::string input = buffer.str();
     nlohmann::json j = nlohmann::json::parse(input);
+ j["parameters"][1];
     // Accessing the data
     for (const auto& param : j["parameters"]) {
           printf("PARAM: %s\n", param["name"].get<std::string>().c_str());
