@@ -654,13 +654,13 @@ void parseArgs(int argc, char **argv){
 
 
         if (filepath != "NOFILE") {
-            if(std::filesystem::exists(filepath)) {
-                config_file_used = true;
-                parse_config_file();
-
-            }else{
+//            if(std::filesystem::exists(filepath)) {
+//                config_file_used = true;
+//                parse_config_file();
+//
+//            }else{
                 exitError("ERROR: the specified filepath doesn't exist, exiting...");
-            }
+//            }
         }
 
 
