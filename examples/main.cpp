@@ -677,7 +677,7 @@ void parseArgs(int argc, char **argv){
 
 
 
-  printf("passed");
+  printf("\n\n\n passed\n\n");
     fflush(stdout);
 
     setAndCheckValue(typesize, typeSizeArg, "ERROR: Invalid typesize\n", 1, 8);
