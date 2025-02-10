@@ -536,46 +536,46 @@ void parse_config_file() {
     std::string input = buffer.str();
     nlohmann::json j = nlohmann::json::parse(input);
 //     Accessing the data
-//    for (const auto& param : j["parameters"]) {
-//
-//
-//      printf("test 5\n");
-//
-//      std::string name = param["name"].get<std::string>();
-//printf("test 4\n");
-//fflush(stdout);
-//
-//
-//      int mean =  param["mean"].get<int>();
-//
-//printf("test 2\n");
-//fflush(stdout);
-//
-//      int stddev = param["stdev"].get<int>();
-//
-//printf("test 1\n");
-//fflush(stdout);
-//      if (name == "nowned") {
-//          nowned=mean;
-//          nowned_stdv = stddev;
-//      } else if (name == "nremote") {
-//          nremote=mean;
-//          nremote_stdv = stddev;
-//      } else if (name == "blocksize") {
-//          blocksz=mean;
-//          blocksz_stdv = stddev;
-//      } else if (name == "comm_partners") {
-//          nneighbors=mean;
-//          nneighbors_stdv = stddev;
-//      }else if (name == "stride") {
-//          stride=mean;
-//          stride_stdv = stddev;
-//      }else {
-//      //todo
-//      }
-//
-//
-//    }
+    for (const auto& param : j["parameters"]) {
+
+
+      printf("test 5\n");
+
+      std::string name = param["name"].get<std::string>();
+printf("test 4\n");
+fflush(stdout);
+
+
+      int mean =  param["mean"].get<int>();
+
+printf("test 2\n");
+fflush(stdout);
+
+      int stddev = param["stdev"].get<int>();
+
+printf("test 1\n");
+fflush(stdout);
+      if (name == "nowned") {
+          nowned=mean;
+          nowned_stdv = stddev;
+      } else if (name == "nremote") {
+          nremote=mean;
+          nremote_stdv = stddev;
+      } else if (name == "blocksize") {
+          blocksz=mean;
+          blocksz_stdv = stddev;
+      } else if (name == "comm_partners") {
+          nneighbors=mean;
+          nneighbors_stdv = stddev;
+      }else if (name == "stride") {
+          stride=mean;
+          stride_stdv = stddev;
+      }else {
+      //todo
+      }
+
+
+    }
   }
 
 
