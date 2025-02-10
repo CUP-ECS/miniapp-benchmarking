@@ -537,7 +537,8 @@ void parse_config_file() {
     nlohmann::json j = nlohmann::json::parse(input);
     // Accessing the data
     for (const auto& param : j["parameters"]) {
-      std::string name = param["name"];
+
+      std::string name = param["name"].get<std::string>();
 
 
       int mean =  param["mean"].get<int>();
@@ -654,13 +655,13 @@ void parseArgs(int argc, char **argv){
 
 
         if (filepath != "NOFILE") {
-//            if(std::filesystem::exists(filepath)) {
-//                config_file_used = true;
-//                parse_config_file();
-//
-//            }else{
+            if(std::filesystem::exists(filepath)) {
+                config_file_used = true;
+                parse_config_file();
+
+            }else{
                 exitError("ERROR: the specified filepath doesn't exist, exiting...");
-//            }
+            }
         }
 
 
