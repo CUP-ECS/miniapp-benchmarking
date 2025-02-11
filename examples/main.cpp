@@ -396,22 +396,6 @@ int benchmark(int penum) {
 
 void migrationExample()
 {
-    /*
-      The distributor is a communication plan allowing for the migration of
-      data from one uniquely-owned distribution to another uniquely-owned
-      distribution. Data migration may be applied to entire AoSoA data
-      structures as well as slices.
-
-      In this example we will demonstrate building a distributor communication
-      plan and migrating data.
-
-      Note: The distributor uses MPI for data migration. MPI is initialized
-      and finalized in the main function below.
-
-      Note: The distributor uses GPU-aware MPI communication. If AoSoA data is
-      allocated in GPU memory, this feature will be used automatically.
-    */
-
     std::cout << "Cabana Migration Example\n" << std::endl;
 
     /*
@@ -442,7 +426,7 @@ void migrationExample()
         slice_ids( i ) = i;
     }
 
-    if ( comm_rank == 0 )
+//    if ( comm_rank == 0 )
     {
         std::cout << "BEFORE migration" << std::endl
                   << "(Rank " << comm_rank << ") ";
@@ -502,7 +486,7 @@ void migrationExample()
     slice_ranks = Cabana::slice<0>( aosoa );
     slice_ids = Cabana::slice<1>( aosoa );
 
-    if ( comm_rank == 0 )
+//    if ( comm_rank == 0 )
     {
         std::cout << "AFTER migration" << std::endl
                   << "(Rank " << comm_rank << ") ";
@@ -683,35 +667,20 @@ void parseArgs(int argc, char **argv){
 
     }
 
-
-
-  printf("\n\n\n passed\n\n");
-    fflush(stdout);
-
     setAndCheckValue(typesize, typeSizeArg, "ERROR: Invalid typesize\n", 1, 8);
-
-  printf("passed");
-    fflush(stdout);
 
     // For nsamples, no specific range, only non-negative check
     setAndCheckValue(nsamples, samplesArg, "ERROR: Invalid number of samples\n", 0);
 
-
-  printf("passed");
-    fflush(stdout);
     // For niterations, same non-negative check
     setAndCheckValue(niterations, iterationsArg, "ERROR: Invalid number of iterations\n", 0);
-  printf("passed");
-    fflush(stdout);
+
     // For nneighbors, same non-negative check
     setAndCheckValue(nneighbors, neighborsArg, "ERROR: Invalid number of neighbors\n", 0);
-  printf("passed");
-    fflush(stdout);
+
     // For nneighbors_stdv, no specific range, only non-negative check
     setAndCheckValue(nneighbors_stdv, neighborsStdvArg, "ERROR: Invalid neighbors std\n", 0);
 
-  printf("passed");
-    fflush(stdout);
     // For nowned, no specific range, only non-negative check
     setAndCheckValue(nowned, ownedAvgArg, "ERROR: Invalid number of owned\n", 0);
 
@@ -736,8 +705,7 @@ void parseArgs(int argc, char **argv){
     // For stride_stdv, no specific range, only non-negative check
     setAndCheckValue(stride_stdv, strideStdvArg, "ERROR: Invalid stride std\n", 0);
 
-    printf("passed");
-    fflush(stdout);
+
 
         std::string unit = unitsArg.getValue();
 
