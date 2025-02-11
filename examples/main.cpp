@@ -423,7 +423,7 @@ void migrationExample()
     for ( int i = 0; i < num_tuple; ++i )
     {
         slice_ranks( i ) = comm_rank;
-        slice_ids( i ) = i;
+        slice_ids( i ) = i+(100*comm_rank);
     }
 
 //    if ( comm_rank == 0 )
