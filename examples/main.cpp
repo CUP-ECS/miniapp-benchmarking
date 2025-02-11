@@ -525,8 +525,8 @@ void migrationExample()
 
 
 
-void parse_config_file() {
-  std::ifstream file("/g/g20/bacon4/irregular-benchmarking/build/examples/input.json");
+void parse_config_file(std::string config_file) {
+  std::ifstream file(config_file);
 
   if (!file.is_open()) {
     std::cerr << "Error: Could not open file!" << std::endl;
@@ -673,13 +673,10 @@ void parseArgs(int argc, char **argv){
 
         // Check if path exists and is a file
         if (std::filesystem::exists(p)) {
-          std::cout << "The file exists." << std::endl;
+          parse_config_file(filepath);
         } else {
-          std::cout << "The file does not exist." << std::endl;
+          exitError(  "The file does not exist.");
         }
-
-  printf("\n\n\n passed\n\n");
-    fflush(stdout);
       } catch (const std::exception& e) {
         std::cerr << "Error: " << e.what() << std::endl;
       }
