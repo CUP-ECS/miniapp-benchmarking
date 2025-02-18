@@ -180,10 +180,10 @@ void migrationExample()
     std::vector<int> needed_indices(nremote);
 
 
-    num_indices_offpe = 0;
+   int num_indices_offpe = 0;
     for (int i=0; i<nneighbors; i++) {
       int k;
-      inum = 0;
+    int  inum = 0;
 
       for (int j=0, k = 0; j<num_indices_per_partner; j++, k++) {
         /* Detect end of block */
