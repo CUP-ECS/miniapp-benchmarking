@@ -178,6 +178,16 @@ void migrationExample()
     }
 
     std::vector<int> needed_indices(nremote);
+    int  num_indices_per_partner;
+    if (nneighbors != 0) {
+      num_indices_per_partner = nremote / nneighbors;
+    }
+    else {
+      nremote = 0;
+      num_indices_per_partner = 0;
+    }
+
+
 
 
    int num_indices_offpe = 0;
