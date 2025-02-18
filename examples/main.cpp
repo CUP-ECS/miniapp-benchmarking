@@ -245,24 +245,24 @@ void migrationExample()
 
 
 
-//    if ( comm_rank == 0 )
-    {
-        std::cout << "BEFORE migration" << std::endl
-                  << "(Rank " << comm_rank << ") ";
-        for ( std::size_t i = 0; i < slice_ranks.size(); ++i )
-            std::cout << slice_ranks( i ) << " ";
-        std::cout << std::endl
-                  << "(" << slice_ranks.size() << " ranks before migrate)"
-                  << std::endl
-                  << "(Rank " << comm_rank << ") ";
-        for ( std::size_t i = 0; i < slice_ids.size(); ++i )
-            std::cout << slice_ids( i ) << " ";
-        std::cout << std::endl
-                  << "(" << slice_ids.size() << " IDs before migrate)"
-                  << std::endl
-                  << std::endl;
-    }
-
+////    if ( comm_rank == 0 )
+//    {
+//        std::cout << "BEFORE migration" << std::endl
+//                  << "(Rank " << comm_rank << ") ";
+//        for ( std::size_t i = 0; i < slice_ranks.size(); ++i )
+//            std::cout << slice_ranks( i ) << " ";
+//        std::cout << std::endl
+//                  << "(" << slice_ranks.size() << " ranks before migrate)"
+//                  << std::endl
+//                  << "(Rank " << comm_rank << ") ";
+//        for ( std::size_t i = 0; i < slice_ids.size(); ++i )
+//            std::cout << slice_ids( i ) << " ";
+//        std::cout << std::endl
+//                  << "(" << slice_ids.size() << " IDs before migrate)"
+//                  << std::endl
+//                  << std::endl;
+//    }
+//
 
     Kokkos::View<int*, MemorySpace> export_ranks( "export_ranks", num_tuple );
 
@@ -311,22 +311,22 @@ void migrationExample()
     slice_ranks = Cabana::slice<0>( aosoa );
     slice_ids = Cabana::slice<1>( aosoa );
 
-//    if ( comm_rank == 0 )
-    {
-        std::cout << "AFTER migration" << std::endl
-                  << "(Rank " << comm_rank << ") ";
-        for ( std::size_t i = 0; i < slice_ranks.size(); ++i )
-            std::cout << slice_ranks( i ) << " ";
-        std::cout << std::endl
-                  << "(" << slice_ranks.size() << " ranks after migrate)"
-                  << std::endl
-                  << "(Rank " << comm_rank << ") ";
-        for ( std::size_t i = 0; i < slice_ids.size(); ++i )
-            std::cout << slice_ids( i ) << " ";
-        std::cout << std::endl
-                  << "(" << slice_ids.size() << " IDs after migrate)"
-                  << std::endl;
-    }
+////    if ( comm_rank == 0 )
+//    {
+//        std::cout << "AFTER migration" << std::endl
+//                  << "(Rank " << comm_rank << ") ";
+//        for ( std::size_t i = 0; i < slice_ranks.size(); ++i )
+//            std::cout << slice_ranks( i ) << " ";
+//        std::cout << std::endl
+//                  << "(" << slice_ranks.size() << " ranks after migrate)"
+//                  << std::endl
+//                  << "(Rank " << comm_rank << ") ";
+//        for ( std::size_t i = 0; i < slice_ids.size(); ++i )
+//            std::cout << slice_ids( i ) << " ";
+//        std::cout << std::endl
+//                  << "(" << slice_ids.size() << " IDs after migrate)"
+//                  << std::endl;
+//    }
     }
 }
 
