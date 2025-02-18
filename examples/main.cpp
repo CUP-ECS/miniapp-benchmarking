@@ -118,7 +118,7 @@ void migrationExample()
     nneighbors = gauss_dist(nneighbors_orig, nneighbors_stdv);
     stride = gauss_dist(stride_orig, stride_stdv);
 
-    if (report_params) {
+    if (1) {
       printf("PARAM: nowned - %d\n", nowned);
       printf("PARAM: nremote - %d\n", nremote);
       printf("PARAM: blocksize - %d\n", blocksz);
@@ -190,29 +190,6 @@ void migrationExample()
 
 
 
-   int num_indices_offpe = 0;
-    for (int i=0; i<nneighbors; i++) {
-      int k;
-    int  inum = 0;
-
-      for (int j=0, k = 0; j<num_indices_per_partner; j++, k++) {
-        /* Detect end of block */
-        if (k >= blocksz) {
-          inum += (1 + stride);
-          k = 0;
-        } else {
-          inum++;
-        }
-
-        /* Detect if we would walk off the end of the remote */
-        if (inum >= nowned)
-          break;
-
-        needed_indices[num_indices_offpe] = partner_pe[i] * nowned + inum;
-        num_indices_offpe++;
-      }
-    }
-
 
     std::cout << "Contents of needed_indices: ";
     for (int i = 0; i < nremote; ++i) {
@@ -280,6 +257,29 @@ void migrationExample()
     for ( int i = 20; i < num_tuple; ++i )
         export_ranks( i ) = comm_rank;
 
+
+    int num_indices_offpe = 0;
+    for (int i=0; i<nneighbors; i++) {
+      int k;
+      int  inum = 0;
+
+      for (int j=0, k = 0; j<num_indices_per_partner; j++, k++) {
+        /* Detect end of block */
+        if (k >= blocksz) {
+          inum += (1 + stride);
+          k = 0;
+        } else {
+          inum++;
+        }
+
+        /* Detect if we would walk off the end of the remote */
+        if (inum >= nowned)
+          break;
+
+        needed_indices[num_indices_offpe] = partner_pe[i] * nowned + inum;
+        num_indices_offpe++;
+      }
+    }
 
 
 
