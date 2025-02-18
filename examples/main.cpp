@@ -231,7 +231,7 @@ void migrationExample()
     using MemorySpace = Kokkos::HostSpace;
 
 
-    int num_tuple = 100;
+    int num_tuple = nowned;
     Cabana::AoSoA<DataTypes, MemorySpace, VectorLength> aosoa( "A", num_tuple );
 
     auto slice_ranks = Cabana::slice<0>( aosoa );
@@ -239,7 +239,7 @@ void migrationExample()
     for ( int i = 0; i < num_tuple; ++i )
     {
         slice_ranks( i ) = comm_rank;
-        slice_ids( i ) = i+(100*comm_rank);
+        slice_ids( i ) = i+(num_tuple*comm_rank);
     }
 
 
