@@ -243,24 +243,16 @@ void migrationExample()
 
     Kokkos::View<int*, MemorySpace> export_ranks( "export_ranks", num_tuple );
 
-    int previous_rank = ( comm_rank == 0 ) ? comm_size - 1 : comm_rank - 1;
-    int next_rank = ( comm_rank == comm_size - 1 ) ? 0 : comm_rank + 1;
-    for ( int i = 0; i < 10; ++i )
-        export_ranks( i ) = next_rank;
 
-    // Next 10 elements will be discarded. Use an export rank of -1 to
-    // indicate this.
-    for ( int i = 10; i < 20; ++i )
-        export_ranks( i ) = -1;
 
-    // The last 80 elements stay on this process.
-    for ( int i = 20; i < num_tuple; ++i )
+    for ( int i = 0; i < num_tuple; ++i )
         export_ranks( i ) = comm_rank;
 
 
     int num_indices_offpe = 0;
+
+
     for (int i=0; i<nneighbors; i++) {
-      int k;
       int  inum = 0;
 
       for (int j=0, k = 0; j<num_indices_per_partner; j++, k++) {
@@ -276,8 +268,7 @@ void migrationExample()
         if (inum >= nowned)
           break;
 
-        needed_indices[num_indices_offpe] = partner_pe[i] * nowned + inum;
-        num_indices_offpe++;
+        export_ranks(inum ) = partner_pe[i];
       }
     }
 
