@@ -177,8 +177,39 @@ void migrationExample()
       std::cout << "Partner " << i << ": " << partner_pe[i] << std::endl;
     }
 
+    std::vector<int> needed_indices(nremote);
 
 
+    num_indices_offpe = 0;
+    for (i=0; i<nneighbors; i++) {
+      int k;
+      inum = 0;
+
+      for (j=0, k = 0; j<num_indices_per_partner; j++, k++) {
+        /* Detect end of block */
+        if (k >= blocksz) {
+          inum += (1 + stride);
+          k = 0;
+        } else {
+          inum++;
+        }
+
+        /* Detect if we would walk off the end of the remote */
+        if (inum >= nowned)
+          break;
+
+        needed_indices[num_indices_offpe] = partner_pe[i] * nowned + inum;
+        num_indices_offpe++;
+      }
+    }
+
+
+    std::cout << "Contents of needed_indices: ";
+    for (int i = 0; i < nremote; ++i) {
+      std::cout << needed_indices[i] << " ";
+    }
+
+    std::cout << std::endl;
 
 
 
