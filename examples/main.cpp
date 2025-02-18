@@ -181,11 +181,11 @@ void migrationExample()
 
 
     num_indices_offpe = 0;
-    for (i=0; i<nneighbors; i++) {
+    for (int i=0; i<nneighbors; i++) {
       int k;
       inum = 0;
 
-      for (j=0, k = 0; j<num_indices_per_partner; j++, k++) {
+      for (int j=0, k = 0; j<num_indices_per_partner; j++, k++) {
         /* Detect end of block */
         if (k >= blocksz) {
           inum += (1 + stride);
