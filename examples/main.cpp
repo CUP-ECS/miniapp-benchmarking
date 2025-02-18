@@ -186,7 +186,7 @@ void migrationExample()
       nremote = 0;
       num_indices_per_partner = 0;
     }
-
+    printf("nowned: %d\n", nowned);
 
 
 
